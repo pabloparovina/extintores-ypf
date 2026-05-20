@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Extintores YPF</title>
+<style>
+:root{
+  --red:#D93025;--navy:#0D1B2A;
+  --ok:#2E7D32;--ok-bg:#E8F5E9;
+  --nc:#C62828;--nc-bg:#FFEBEE;
+  --obs:#E65100;--obs-bg:#FFF3E0;
+  --pend:#757575;--pend-bg:#F5F5F5;
+  --bg:#F0F2F5;--card:#fff;--border:#DDE1E7;
+  --text:#1A1A2E;--muted:#6B7280;--inp:#F8F9FB;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text)}
+
+/* HEADER */
+.hdr{background:var(--navy);padding:14px 16px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.hdr-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.logo{background:var(--red);color:#fff;font-weight:800;font-size:12px;letter-spacing:1.5px;padding:5px 9px;border-radius:5px;flex-shrink:0}
+.hdr h1{color:#fff;font-size:15px;font-weight:600;line-height:1.2}
+.hdr p{color:#7A90A8;font-size:11px;margin-top:1px}
+.meta-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.meta-inp{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:10px 12px;font-size:14px;width:100%;outline:none;font-family:inherit}
+.meta-inp::placeholder{color:rgba(255,255,255,.35)}
+.meta-inp:focus{border-color:var(--red)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px}
+.sc{background:var(--card);border-radius:10px;padding:9px 4px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.07)}
+.sc .n{font-size:22px;font-weight:700;color:var(--text)}
+.sc .l{font-size:10px;color:var(--muted);margin-top:1px}
+.sc.ok .n{color:var(--ok)}.sc.nc .n{color:var(--nc)}.sc.ob .n{color:var(--obs)}
+
+/* LIST */
+.list{padding:0 16px 100px}
+.list-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.list-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.btn-add{background:var(--red);color:#fff;border:none;padding:11px 20px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;min-height:46px;box-shadow:0 3px 10px rgba(217,48,37,.35);font-family:inherit}
+
+.empty{text-align:center;padding:48px 20px;color:var(--muted);font-size:14px;line-height:2}
+.empty span{font-size:44px;display:block;margin-bottom:10px;opacity:.3}
+
+/* CARD */
+.card{background:var(--card);border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);border-left:4px solid var(--border)}
+.card.s-ok{border-left-color:var(--ok)}.card.s-nc{border-left-color:var(--nc)}
+.card.s-obs{border-left-color:var(--obs)}.card.s-pend{border-left-color:var(--pend)}
+.card-top{display:flex;align-items:center;gap:10px;padding:13px 13px 13px 11px;min-height:62px;cursor:pointer;user-select:none}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;border:1.5px solid var(--border)}
+.cinfo{flex:1;min-width:0}
+.cname{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.csub{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{padding:4px 9px;border-radius:5px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap}
+.b-ok{background:var(--ok-bg);color:var(--ok)}.b-nc{background:var(--nc-bg);color:var(--nc)}
+.b-obs{background:var(--obs-bg);color:var(--obs)}.b-pend{background:var(--pend-bg);color:var(--pend)}
+.chev{font-size:18px;color:var(--muted);flex-shrink:0;transition:transform .22s;line-height:1}
+
+.card-body{display:none;border-top:1px solid var(--border);padding:14px}
+.card-body.open{display:block}
+
+.fsec{margin-bottom:16px}
+.flbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fg1{display:grid;grid-template-columns:1fr;gap:8px}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg label{font-size:11px;color:var(--muted);font-weight:500}
+.fg input,.fg select,.fg textarea{font-size:15px;padding:10px 12px;border:1.5px solid var(--border);border-radius:9px;background:var(--inp);color:var(--text);font-family:inherit;width:100%;outline:none;min-height:46px;-webkit-appearance:none;appearance:none}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red);background:#fff}
+.fg textarea{resize:none;min-height:68px;line-height:1.5;font-size:14px}
+
+/* CHECKS */
+.chk{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);gap:8px}
+.chk:last-child{border-bottom:none}
+.chk-lbl{font-size:13px;color:var(--text);flex:1;line-height:1.3}
+.chk-btns{display:flex;gap:5px;flex-shrink:0}
+.cb{padding:8px 11px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid;background:transparent;min-width:44px;min-height:38px;font-family:inherit}
+.cb-ok{border-color:var(--ok);color:var(--ok)}.cb-ok.on{background:var(--ok);color:#fff}
+.cb-nc{border-color:var(--nc);color:var(--nc)}.cb-nc.on{background:var(--nc);color:#fff}
+.cb-na{border-color:var(--pend);color:var(--pend)}.cb-na.on{background:var(--pend);color:#fff}
+
+/* NC BOX */
+.nc-box{background:var(--nc-bg);border:1.5px solid #FFCDD2;border-radius:10px;padding:12px 13px;margin-top:14px}
+.nc-box-title{font-size:12px;font-weight:700;color:var(--nc);margin-bottom:10px}
+.nc-box .fg label{color:var(--nc)}
+.nc-box .fg input{border-color:#FFCDD2;background:#fff}
+
+.btn-del{width:100%;padding:12px;margin-top:14px;font-size:13px;color:var(--nc);border:1.5px solid #FFCDD2;border-radius:10px;background:transparent;cursor:pointer;min-height:46px;font-family:inherit;font-weight:600}
+
+/* FAB */
+.fab{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:10px 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:99;box-shadow:0 -4px 16px rgba(0,0,0,.1)}
+.btn-p{background:var(--red);color:#fff;border:none;padding:14px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;min-height:52px;font-family:inherit;box-shadow:0 3px 10px rgba(217,48,37,.3)}
+.btn-s{background:transparent;color:var(--text);border:1.5px solid var(--border);padding:14px;border-radius:11px;font-size:14px;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal.open{display:block}
+.modal-hdr{display:flex;align-items:center;gap:12px;padding:13px 16px;position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.07);z-index:10}
+.btn-back{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;background:transparent;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600;color:var(--text);min-height:44px}
+.modal-title{font-size:16px;font-weight:700}
+.modal-body{padding:14px 16px 40px}
+
+/* REPORT */
+.r-meta{background:var(--navy);border-radius:12px;padding:14px 16px;margin-bottom:12px;color:#fff}
+.r-meta .rrow{display:flex;flex-wrap:wrap;gap:4px 20px;margin-bottom:6px}
+.r-meta .rrow:last-child{margin-bottom:0}
+.r-meta strong{color:#7A90A8;font-size:10px;display:block;text-transform:uppercase;letter-spacing:.4px}
+.r-meta span{font-size:13px;font-weight:600}
+.r-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.r-sc{background:var(--card);border-radius:9px;padding:9px 4px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.07)}
+.r-sc .n{font-size:20px;font-weight:700;color:var(--text)}.r-sc .l{font-size:10px;color:var(--muted)}
+.r-sc.ok .n{color:var(--ok)}.r-sc.nc .n{color:var(--nc)}.r-sc.ob .n{color:var(--obs)}
+.r-card{background:var(--card);border-radius:11px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.07)}
+.r-card-hdr{padding:10px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.r-card-hdr.ok{background:var(--ok-bg)}.r-card-hdr.nc{background:var(--nc-bg)}
+.r-card-hdr.obs{background:var(--obs-bg)}.r-card-hdr.pend{background:var(--pend-bg)}
+.rnum{font-size:13px;font-weight:700}
+.rnum.ok{color:var(--ok)}.rnum.nc{color:var(--nc)}.rnum.obs{color:var(--obs)}.rnum.pend{color:var(--pend)}
+.rloc{flex:1;font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r-body{padding:10px 13px;font-size:12px}
+.r-dates{color:var(--muted);line-height:1.9;margin-bottom:8px}
+.r-dates strong{color:var(--text)}
+.r-checks{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;margin-bottom:6px}
+.rchk{display:flex;align-items:center;gap:5px;font-size:11px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1.5px solid var(--pend);background:var(--pend-bg)}
+.dot.ok{background:var(--ok-bg);border-color:var(--ok)}.dot.nc{background:var(--nc-bg);border-color:var(--nc)}.dot.na{background:var(--obs-bg);border-color:var(--obs)}
+.r-obs{font-style:italic;color:var(--muted);border-top:1px solid var(--border);padding-top:6px;margin-top:6px;font-size:11px}
+.r-nc{background:var(--nc-bg);border:1px solid #FFCDD2;border-radius:8px;padding:9px 12px;margin-top:8px;font-size:11px;color:var(--nc)}
+.r-nc b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.r-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.hint{background:var(--card);border-radius:10px;padding:13px;font-size:12px;color:var(--muted);line-height:1.7;margin-top:12px;border:1px dashed var(--border)}
+.hint strong{color:var(--text)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-top">
+    <span class="logo">YPF</span>
+    <div><h1>Inspección de Extintores</h1><p>Estación de Servicio · La Plata, Bs. As.</p></div>
+  </div>
+  <div class="meta-row">
+    <input class="meta-inp" id="inspector" type="text" placeholder="Inspector/a" autocomplete="off">
+    <input class="meta-inp" id="turno"     type="text" placeholder="Turno / Sector" autocomplete="off">
+  </div>
+</div>
+
+<div class="stats">
+  <div class="sc">   <div class="n" id="sT">0</div><div class="l">Total</div></div>
+  <div class="sc ok"><div class="n" id="sOk">0</div><div class="l">Conform.</div></div>
+  <div class="sc nc"><div class="n" id="sNc">0</div><div class="l">No conf.</div></div>
+  <div class="sc ob"><div class="n" id="sObs">0</div><div class="l">Con obs.</div></div>
+</div>
+
+<div class="list">
+  <div class="list-hdr">
+    <span class="list-lbl">🧯 Extintores</span>
+    <button class="btn-add" id="btnAgregar">+ Agregar</button>
+  </div>
+  <div id="extList">
+    <div class="empty"><span>🧯</span>No hay extintores registrados.<br>Tocá <strong>+ Agregar</strong> para comenzar.</div>
+  </div>
+</div>
+
+<div class="fab">
+  <button class="btn-s" id="btnVerInforme">📋 Ver informe</button>
+  <button class="btn-p" id="btnCompartir">📤 Compartir</button>
+</div>
+
+<div class="modal" id="modalInforme">
+  <div class="modal-hdr">
+    <button class="btn-back" id="btnVolver">← Volver</button>
+    <span class="modal-title">Informe de Inspección</span>
+  </div>
+  <div class="modal-body" id="modalBody"></div>
+</div>
+
+<script>
+var exts = [];
+var counter = 0;
+
+var AG = ['Polvo ABC (multipropósito)','Polvo BC','CO2 (dióxido de carbono)',
+          'Agua presurizada','Agua pulverizada','Espuma AFFF','Halotron','Clase D'];
+var CL = ['A','B','C','AB','ABC','BC','D','K'];
+var CA = ['1 kg','2,5 kg','4,5 kg','6 kg','9 kg','10 kg','12 kg','2 l','6 l','9 l','Otro'];
+var CHK_KEYS  = ['pintura','manguera','boquilla','precinto','manometro','senalizacion','soporte','carga_vigente'];
+var CHK_NAMES = {
+  pintura:'Pintura / cuerpo', manguera:'Manguera', boquilla:'Boquilla / válvula',
+  precinto:'Precinto de seguridad', manometro:'Manómetro (zona verde)',
+  senalizacion:'Señalización', soporte:'Soporte / gancho', carga_vigente:'Carga vigente'
+};
+var EL = {ok:'Conforme', nc:'No conforme', obs:'Con observ.', pend:'Pendiente'};
+var EB = {ok:'b-ok', nc:'b-nc', obs:'b-obs', pend:'b-pend'};
+var EC = {ok:'s-ok', nc:'s-nc', obs:'s-obs', pend:'s-pend'};
+var ER = {ok:'ok',   nc:'nc',   obs:'obs',   pend:'pend'};
+
+/* ── utilidades ── */
+function getNow() {
+  var d = new Date();
+  var p = function(n){ return String(n).padStart(2,'0'); };
+  return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+
+         ' '+p(d.getHours())+':'+p(d.getMinutes());
+}
+function fmtD(v) {
+  if (!v) return '—';
+  var pts = v.split('-');
+  return pts.length === 3 ? pts[2]+'/'+pts[1]+'/'+pts[0] : v;
+}
+function getExt(id) {
+  for (var i = 0; i < exts.length; i++) { if (exts[i].id === id) return exts[i]; }
+  return null;
+}
+function selOpts(arr, val) {
+  var out = '<option value="">Seleccionar...</option>';
+  for (var i = 0; i < arr.length; i++) {
+    out += '<option'+(arr[i]===val?' selected':'')+'>'+arr[i]+'</option>';
+  }
+  return out;
+}
+
+/* ── evento central con delegación ── */
+document.addEventListener('click', function(e) {
+  var t = e.target;
+
+  /* Agregar */
+  if (t.id === 'btnAgregar') { addExt(); return; }
+
+  /* Ver informe */
+  if (t.id === 'btnVerInforme') { showReport(); return; }
+
+  /* Compartir */
+  if (t.id === 'btnCompartir') { compartir(); return; }
+
+  /* Volver del modal */
+  if (t.id === 'btnVolver') { cerrarModal(); return; }
+
+  /* Botón compartir dentro del modal */
+  if (t.id === 'btnCompartirModal') { compartir(); return; }
+
+  /* Toggle card */
+  var cardTop = closest(t, '.card-top');
+  if (cardTop) { toggleCard(cardTop.dataset.id); return; }
+
+  /* Botones OK / NC / NA */
+  if (t.dataset.action === 'chk') {
+    setChk(t.dataset.eid, t.dataset.key, t.dataset.val);
+    return;
+  }
+
+  /* Eliminar extintor */
+  if (t.dataset.action === 'del') {
+    if (confirm('¿Eliminar este extintor?')) {
+      delExt(t.dataset.eid);
+    }
+    return;
+  }
+});
+
+/* change también delegado (selects y dates) */
+document.addEventListener('change', function(e) {
+  var t = e.target;
+  if (t.dataset.eid) { syncField(t.dataset.eid, t.dataset.field, t.value); }
+});
+
+/* input delegado (campos de texto) */
+document.addEventListener('input', function(e) {
+  var t = e.target;
+  if (t.dataset.eid) { syncField(t.dataset.eid, t.dataset.field, t.value); }
+});
+
+function closest(el, sel) {
+  while (el && el !== document) {
+    if (el.matches && el.matches(sel)) return el;
+    el = el.parentNode;
+  }
+  return null;
+}
+
+/* ── lógica ── */
+function addExt() {
+  counter++;
+  var id = 'e' + Date.now();
+  var e = {
+    id:id, num:counter, nro:'', ubicacion:'', agente:'', clase:'',
+    capacidad:'', venc:'', hidro:'', obs:'', resp_nc:'', plazo_nc:'',
+    estado:'pend', checks:{}
+  };
+  for (var i = 0; i < CHK_KEYS.length; i++) e.checks[CHK_KEYS[i]] = null;
+  exts.push(e);
+  renderList();
+  setTimeout(function(){
+    var el = document.getElementById('card_'+id);
+    if (el) {
+      openCard(id);
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }, 80);
+}
+
+function openCard(id) {
+  var b  = document.getElementById('body_'+id);
+  var ch = document.getElementById('chev_'+id);
+  if (b)  b.classList.add('open');
+  if (ch) ch.textContent = '∧';
+}
+
+function toggleCard(id) {
+  var b  = document.getElementById('body_'+id);
+  var ch = document.getElementById('chev_'+id);
+  if (!b) return;
+  var open = b.classList.toggle('open');
+  if (ch) ch.textContent = open ? '∧' : '⌄';
+}
+
+function setChk(eid, key, val) {
+  var e = getExt(eid);
+  if (!e) return;
+  e.checks[key] = (e.checks[key] === val) ? null : val;
+  var cur = e.checks[key];
+  var types = ['ok','nc','na'];
+  for (var i = 0; i < types.length; i++) {
+    var btn = document.getElementById('cb_'+eid+'_'+key+'_'+types[i]);
+    if (btn) btn.className = btn.className.replace(' on','') + (types[i]===cur ? ' on' : '');
+  }
+  calcEstado(eid);
+}
+
+function syncField(eid, field, val) {
+  var e = getExt(eid);
+  if (!e) return;
+  e[field] = val;
+  if (field === 'nro') {
+    var av = document.getElementById('av_'+eid);
+    if (av) av.textContent = val || e.num;
+  }
+  if (field === 'ubicacion') {
+    var cn = document.getElementById('cn_'+eid);
+    if (cn) cn.textContent = val || 'Sin ubicación';
+  }
+  if (field === 'agente' || field === 'capacidad') {
+    var cs = document.getElementById('cs_'+eid);
+    if (cs) cs.textContent = [e.agente, e.capacidad].filter(Boolean).join(' · ') || 'Sin datos';
+  }
+  calcEstado(eid);
+}
+
+function calcEstado(eid) {
+  var e = getExt(eid);
+  if (!e) return;
+  var vals = [];
+  for (var k in e.checks) vals.push(e.checks[k]);
+  var answered = 0, hasNc = false, hasPend = false;
+  for (var i = 0; i < vals.length; i++) {
+    if (vals[i] !== null) answered++;
+    if (vals[i] === 'nc') hasNc = true;
+    if (vals[i] === null) hasPend = true;
+  }
+  if (answered === 0 && !e.venc && !e.hidro) e.estado = 'pend';
+  else if (hasNc) e.estado = 'nc';
+  else if (hasPend) e.estado = 'obs';
+  else e.estado = 'ok';
+
+  var card  = document.getElementById('card_'+eid);
+  var badge = document.getElementById('badge_'+eid);
+  var ncbox = document.getElementById('ncbox_'+eid);
+  if (card)  card.className  = 'card '+EC[e.estado];
+  if (badge) { badge.className = 'badge '+EB[e.estado]; badge.textContent = EL[e.estado]; }
+  if (ncbox) ncbox.style.display = (e.estado === 'nc') ? 'block' : 'none';
+  updateStats();
+}
+
+function delExt(eid) {
+  var newExts = [];
+  for (var i = 0; i < exts.length; i++) { if (exts[i].id !== eid) newExts.push(exts[i]); }
+  exts = newExts;
+  renderList();
+}
+
+function renderList() {
+  var el = document.getElementById('extList');
+  if (!exts.length) {
+    el.innerHTML = '<div class="empty"><span>🧯</span>No hay extintores registrados.<br>Tocá <strong>+ Agregar</strong> para comenzar.</div>';
+    updateStats();
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < exts.length; i++) {
+    var e = exts[i];
+    var ncDisp = (e.estado === 'nc') ? 'block' : 'none';
+    var subsub = [e.agente, e.capacidad].filter(Boolean).join(' · ') || 'Sin datos';
+
+    /* checks */
+    var chkHtml = '';
+    for (var ci = 0; ci < CHK_KEYS.length; ci++) {
+      var k = CHK_KEYS[ci];
+      chkHtml += '<div class="chk">'+
+        '<span class="chk-lbl">'+CHK_NAMES[k]+'</span>'+
+        '<div class="chk-btns">'+
+          '<button class="cb cb-ok'+(e.checks[k]==='ok'?' on':'')+'" id="cb_'+e.id+'_'+k+'_ok" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="ok">OK</button>'+
+          '<button class="cb cb-nc'+(e.checks[k]==='nc'?' on':'')+'" id="cb_'+e.id+'_'+k+'_nc" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="nc">NC</button>'+
+          '<button class="cb cb-na'+(e.checks[k]==='na'?' on':'')+'" id="cb_'+e.id+'_'+k+'_na" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="na">N/A</button>'+
+        '</div>'+
+      '</div>';
+    }
+
+    html +=
+      '<div class="card '+EC[e.estado]+'" id="card_'+e.id+'">'+
+        '<div class="card-top" data-id="'+e.id+'">'+
+          '<div class="avatar" id="av_'+e.id+'">'+(e.nro||e.num)+'</div>'+
+          '<div class="cinfo">'+
+            '<div class="cname" id="cn_'+e.id+'">'+(e.ubicacion||'Sin ubicación')+'</div>'+
+            '<div class="csub"  id="cs_'+e.id+'">'+subsub+'</div>'+
+          '</div>'+
+          '<span class="badge '+EB[e.estado]+'" id="badge_'+e.id+'">'+EL[e.estado]+'</span>'+
+          '<span class="chev" id="chev_'+e.id+'">⌄</span>'+
+        '</div>'+
+        '<div class="card-body" id="body_'+e.id+'">'+
+
+          '<div class="fsec"><div class="flbl">📋 Identificación</div>'+
+            '<div class="fg2">'+
+              '<div class="fg"><label>N° Extintor</label><input type="text" value="'+e.nro+'" placeholder="EXT-01" data-eid="'+e.id+'" data-field="nro" autocomplete="off"></div>'+
+              '<div class="fg"><label>Ubicación</label><input type="text" value="'+e.ubicacion+'" placeholder="Ej: Isla 1" data-eid="'+e.id+'" data-field="ubicacion" autocomplete="off"></div>'+
+              '<div class="fg"><label>Agente extintor</label><select data-eid="'+e.id+'" data-field="agente">'+selOpts(AG,e.agente)+'</select></div>'+
+              '<div class="fg"><label>Clase</label><select data-eid="'+e.id+'" data-field="clase">'+selOpts(CL,e.clase)+'</select></div>'+
+              '<div class="fg"><label>Capacidad</label><select data-eid="'+e.id+'" data-field="capacidad">'+selOpts(CA,e.capacidad)+'</select></div>'+
+            '</div>'+
+          '</div>'+
+
+          '<div class="fsec"><div class="flbl">📅 Fechas</div>'+
+            '<div class="fg2">'+
+              '<div class="fg"><label>Vencimiento carga</label><input type="date" value="'+e.venc+'" data-eid="'+e.id+'" data-field="venc"></div>'+
+              '<div class="fg"><label>Prueba hidráulica</label><input type="date" value="'+e.hidro+'" data-eid="'+e.id+'" data-field="hidro"></div>'+
+            '</div>'+
+          '</div>'+
+
+          '<div class="fsec"><div class="flbl">✅ Verificación de componentes</div>'+chkHtml+'</div>'+
+
+          '<div class="fsec"><div class="fg1">'+
+            '<div class="fg"><label>Observaciones generales</label>'+
+              '<textarea placeholder="Detallar hallazgos, daños..." data-eid="'+e.id+'" data-field="obs">'+e.obs+'</textarea>'+
+            '</div>'+
+          '</div></div>'+
+
+          '<div class="nc-box" id="ncbox_'+e.id+'" style="display:'+ncDisp+'">'+
+            '<div class="nc-box-title">⚠️ Acción correctiva — No conformidad</div>'+
+            '<div class="fg2">'+
+              '<div class="fg"><label>Responsable de resolver</label><input type="text" value="'+e.resp_nc+'" placeholder="Nombre / cargo" data-eid="'+e.id+'" data-field="resp_nc" autocomplete="off"></div>'+
+              '<div class="fg"><label>Plazo de resolución</label><input type="date" value="'+e.plazo_nc+'" data-eid="'+e.id+'" data-field="plazo_nc"></div>'+
+            '</div>'+
+          '</div>'+
+
+          '<button class="btn-del" data-action="del" data-eid="'+e.id+'">🗑 Eliminar este extintor</button>'+
+        '</div>'+
+      '</div>';
+  }
+  el.innerHTML = html;
+  updateStats();
+}
+
+function updateStats() {
+  var ok=0, nc=0, obs=0;
+  for (var i=0; i<exts.length; i++) {
+    if (exts[i].estado==='ok')  ok++;
+    if (exts[i].estado==='nc')  nc++;
+    if (exts[i].estado==='obs') obs++;
+  }
+  document.getElementById('sT').textContent   = exts.length;
+  document.getElementById('sOk').textContent  = ok;
+  document.getElementById('sNc').textContent  = nc;
+  document.getElementById('sObs').textContent = obs;
+}
+
+/* ── informe y compartir ── */
+function buildTexto() {
+  var insp  = document.getElementById('inspector').value || '(no indicado)';
+  var turno = document.getElementById('turno').value     || '(no indicado)';
+  var dt = getNow();
+  var ok=0,nc=0,obs=0;
+  for(var i=0;i<exts.length;i++){
+    if(exts[i].estado==='ok') ok++;
+    if(exts[i].estado==='nc') nc++;
+    if(exts[i].estado==='obs') obs++;
+  }
+  var lines = [
+    '=== INSPECCIÓN DE EXTINTORES ===',
+    'Estación YPF · La Plata, Buenos Aires',
+    'Fecha y hora: '+dt,
+    'Inspector/a: '+insp,
+    'Turno / Sector: '+turno,
+    'Total: '+exts.length+' | Conformes: '+ok+' | No conformes: '+nc+' | Con obs.: '+obs,
+    ''
+  ];
+  for (var i = 0; i < exts.length; i++) {
+    var e = exts[i];
+    lines.push('--- EXTINTOR N° '+(e.nro||e.num)+' ---');
+    lines.push('Ubicación: '+(e.ubicacion||'—'));
+    lines.push('Agente: '+(e.agente||'—')+' | Clase: '+(e.clase||'—')+' | Capacidad: '+(e.capacidad||'—'));
+    lines.push('Vencimiento carga: '+fmtD(e.venc)+'  |  Prueba hidráulica: '+fmtD(e.hidro));
+    lines.push('Estado: '+EL[e.estado]);
+    for (var ci = 0; ci < CHK_KEYS.length; ci++) {
+      var k = CHK_KEYS[ci];
+      var lbl = {ok:'OK', nc:'NO CONFORME', na:'N/A'};
+      lines.push('  '+CHK_NAMES[k]+': '+(lbl[e.checks[k]]||'Sin verificar'));
+    }
+    if (e.obs) lines.push('Observaciones: '+e.obs);
+    if (e.estado === 'nc') {
+      lines.push('Responsable NC: '+(e.resp_nc||'No asignado'));
+      lines.push('Plazo: '+fmtD(e.plazo_nc));
+    }
+    lines.push('');
+  }
+  return lines.join('\n');
+}
+
+function compartir() {
+  var txt = buildTexto();
+  if (navigator.share) {
+    navigator.share({title:'Inspección Extintores YPF', text:txt}).catch(function(){ copiar(txt); });
+  } else {
+    copiar(txt);
+  }
+}
+
+function copiar(txt) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(function(){
+      alert('✓ Informe copiado.\nPegalo en WhatsApp, mail o donde necesites.');
+    }).catch(function(){ fallback(txt); });
+  } else {
+    fallback(txt);
+  }
+}
+
+function fallback(txt) {
+  var ta = document.createElement('textarea');
+  ta.value = txt;
+  ta.style.cssText = 'position:fixed;top:10%;left:5%;width:90%;height:60%;z-index:9999;font-size:12px;padding:10px;border-radius:8px;border:2px solid #ccc;background:#fff;color:#000';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); } catch(err) {}
+  alert('Seleccioná todo el texto y copialo manualmente (mantené presionado → Seleccionar todo → Copiar)');
+  setTimeout(function(){ document.body.removeChild(ta); }, 8000);
+}
+
+function showReport() {
+  var insp  = document.getElementById('inspector').value || '(no indicado)';
+  var turno = document.getElementById('turno').value     || '(no indicado)';
+  var dt = getNow();
+  var ok=0,nc=0,obs=0,pend=0;
+  for(var i=0;i<exts.length;i++){
+    if(exts[i].estado==='ok')   ok++;
+    if(exts[i].estado==='nc')   nc++;
+    if(exts[i].estado==='obs')  obs++;
+    if(exts[i].estado==='pend') pend++;
+  }
+
+  var html =
+    '<div class="r-meta">'+
+      '<div class="rrow">'+
+        '<div><strong>Inspector/a</strong><span>'+insp+'</span></div>'+
+        '<div><strong>Turno / Sector</strong><span>'+turno+'</span></div>'+
+      '</div>'+
+      '<div class="rrow"><div><strong>Fecha y hora</strong><span>'+dt+'</span></div></div>'+
+    '</div>'+
+    '<div class="r-sum">'+
+      '<div class="r-sc"><div class="n">'+exts.length+'</div><div class="l">Total</div></div>'+
+      '<div class="r-sc ok"><div class="n">'+ok+'</div><div class="l">Conform.</div></div>'+
+      '<div class="r-sc nc"><div class="n">'+nc+'</div><div class="l">No conf.</div></div>'+
+      '<div class="r-sc ob"><div class="n">'+obs+'</div><div class="l">Con obs.</div></div>'+
+    '</div>';
+
+  if (!exts.length) {
+    html += '<p style="text-align:center;color:var(--muted);padding:2rem;font-size:14px">No hay extintores registrados.</p>';
+  }
+
+  for (var i = 0; i < exts.length; i++) {
+    var e  = exts[i];
+    var es = ER[e.estado];
+    var chkHtml = '';
+    for (var ci = 0; ci < CHK_KEYS.length; ci++) {
+      var k = CHK_KEYS[ci];
+      var v = e.checks[k] || 'pend';
+      chkHtml += '<div class="rchk"><div class="dot '+v+'"></div>'+CHK_NAMES[k]+'</div>';
+    }
+    var ncHtml = '';
+    if (e.estado === 'nc') {
+      ncHtml = '<div class="r-nc"><b>⚠️ Acción correctiva</b>'+
+        '<strong>Responsable:</strong> '+(e.resp_nc||'No asignado')+'<br>'+
+        '<strong>Plazo:</strong> '+fmtD(e.plazo_nc)+
+      '</div>';
+    }
+    html +=
+      '<div class="r-card">'+
+        '<div class="r-card-hdr '+es+'">'+
+          '<span class="rnum '+es+'">N° '+(e.nro||e.num)+'</span>'+
+          '<span class="rloc">'+(e.ubicacion||'Sin ubicación')+(e.agente?' · '+e.agente:'')+'</span>'+
+          '<span class="badge '+EB[e.estado]+'">'+EL[e.estado]+'</span>'+
+        '</div>'+
+        '<div class="r-body">'+
+          '<div class="r-dates">'+
+            '<strong>Clase:</strong> '+(e.clase||'—')+'&nbsp;&nbsp;'+
+            '<strong>Capacidad:</strong> '+(e.capacidad||'—')+'<br>'+
+            '<strong>Vencimiento:</strong> '+fmtD(e.venc)+'&nbsp;&nbsp;'+
+            '<strong>Prueba hidráulica:</strong> '+fmtD(e.hidro)+
+          '</div>'+
+          '<div class="r-checks">'+chkHtml+'</div>'+
+          (e.obs ? '<div class="r-obs"><b>Obs:</b> '+e.obs+'</div>' : '')+
+          ncHtml+
+        '</div>'+
+      '</div>';
+  }
+
+  html +=
+    '<div class="r-actions">'+
+      '<button class="btn-s" id="btnVolver2" onclick="cerrarModal()">← Volver</button>'+
+      '<button class="btn-p" id="btnCompartirModal">📤 Compartir</button>'+
+    '</div>'+
+    '<div class="hint"><strong>💡 Para obtener el PDF:</strong> Usá "Compartir" para enviar el texto por WhatsApp o mail. El PDF se genera desde la PC con el script Python que te entregamos.</div>';
+
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalInforme').classList.add('open');
+  document.getElementById('modalInforme').scrollTop = 0;
+}
+
+function cerrarModal() {
+  document.getElementById('modalInforme').classList.remove('open');
+}
+
+renderList();
+</script>
+</body>
+</html>
