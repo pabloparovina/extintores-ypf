@@ -19,7 +19,6 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text)}
 
-/* HEADER */
 .hdr{background:var(--navy);padding:14px 16px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
 .hdr-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .logo{background:var(--red);color:#fff;font-weight:800;font-size:12px;letter-spacing:1.5px;padding:5px 9px;border-radius:5px;flex-shrink:0}
@@ -30,15 +29,13 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .meta-inp::placeholder{color:rgba(255,255,255,.35)}
 .meta-inp:focus{border-color:var(--red)}
 
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px}
 .sc{background:var(--card);border-radius:10px;padding:9px 4px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.07)}
 .sc .n{font-size:22px;font-weight:700;color:var(--text)}
 .sc .l{font-size:10px;color:var(--muted);margin-top:1px}
 .sc.ok .n{color:var(--ok)}.sc.nc .n{color:var(--nc)}.sc.ob .n{color:var(--obs)}
 
-/* LIST */
-.list{padding:0 16px 100px}
+.list{padding:0 16px 110px}
 .list-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .list-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
 .btn-add{background:var(--red);color:#fff;border:none;padding:11px 20px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;min-height:46px;box-shadow:0 3px 10px rgba(217,48,37,.35);font-family:inherit}
@@ -46,7 +43,6 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .empty{text-align:center;padding:48px 20px;color:var(--muted);font-size:14px;line-height:2}
 .empty span{font-size:44px;display:block;margin-bottom:10px;opacity:.3}
 
-/* CARD */
 .card{background:var(--card);border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);border-left:4px solid var(--border)}
 .card.s-ok{border-left-color:var(--ok)}.card.s-nc{border-left-color:var(--nc)}
 .card.s-obs{border-left-color:var(--obs)}.card.s-pend{border-left-color:var(--pend)}
@@ -59,6 +55,8 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .b-ok{background:var(--ok-bg);color:var(--ok)}.b-nc{background:var(--nc-bg);color:var(--nc)}
 .b-obs{background:var(--obs-bg);color:var(--obs)}.b-pend{background:var(--pend-bg);color:var(--pend)}
 .chev{font-size:18px;color:var(--muted);flex-shrink:0;transition:transform .22s;line-height:1}
+.foto-warn{font-size:14px;flex-shrink:0;line-height:1}
+.req-tag{color:var(--nc);font-size:10px;font-weight:700;margin-left:4px}
 
 .card-body{display:none;border-top:1px solid var(--border);padding:14px}
 .card-body.open{display:block}
@@ -73,8 +71,18 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red);background:#fff}
 .fg textarea{resize:none;min-height:68px;line-height:1.5;font-size:14px}
+.fg input[type="date"]{min-height:46px}
 
-/* CHECKS */
+.foto-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:30px 14px;border:2px dashed #FFB74D;border-radius:10px;background:#FFF8E1;cursor:pointer;text-align:center}
+.foto-empty-ico{font-size:32px;line-height:1}
+.foto-empty-txt{font-size:12px;color:#8A6116;line-height:1.5;font-weight:500}
+.foto-loading{display:flex;align-items:center;justify-content:center;padding:30px 14px;border-radius:10px;background:var(--inp);font-size:13px;color:var(--muted)}
+.foto-preview{border-radius:10px;overflow:hidden;border:1.5px solid var(--border)}
+.foto-preview img{width:100%;max-height:240px;object-fit:cover;display:block}
+.foto-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;background:var(--card)}
+.btn-foto-sm{padding:9px;font-size:12px;font-weight:600;border-radius:8px;border:1.5px solid var(--border);background:var(--inp);color:var(--text);cursor:pointer;font-family:inherit;min-height:38px}
+.btn-foto-sm.danger{border-color:#FFCDD2;color:var(--nc);background:var(--nc-bg)}
+
 .chk{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);gap:8px}
 .chk:last-child{border-bottom:none}
 .chk-lbl{font-size:13px;color:var(--text);flex:1;line-height:1.3}
@@ -84,20 +92,19 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .cb-nc{border-color:var(--nc);color:var(--nc)}.cb-nc.on{background:var(--nc);color:#fff}
 .cb-na{border-color:var(--pend);color:var(--pend)}.cb-na.on{background:var(--pend);color:#fff}
 
-/* NC BOX */
 .nc-box{background:var(--nc-bg);border:1.5px solid #FFCDD2;border-radius:10px;padding:12px 13px;margin-top:14px}
 .nc-box-title{font-size:12px;font-weight:700;color:var(--nc);margin-bottom:10px}
 .nc-box .fg label{color:var(--nc)}
 .nc-box .fg input{border-color:#FFCDD2;background:#fff}
-
 .btn-del{width:100%;padding:12px;margin-top:14px;font-size:13px;color:var(--nc);border:1.5px solid #FFCDD2;border-radius:10px;background:transparent;cursor:pointer;min-height:46px;font-family:inherit;font-weight:600}
 
-/* FAB */
 .fab{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:10px 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:99;box-shadow:0 -4px 16px rgba(0,0,0,.1)}
-.btn-p{background:var(--red);color:#fff;border:none;padding:14px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;min-height:52px;font-family:inherit;box-shadow:0 3px 10px rgba(217,48,37,.3)}
-.btn-s{background:transparent;color:var(--text);border:1.5px solid var(--border);padding:14px;border-radius:11px;font-size:14px;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit}
+.btn-p{background:var(--red);color:#fff;border:none;padding:14px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;min-height:52px;font-family:inherit;box-shadow:0 3px 10px rgba(217,48,37,.3);display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-p:active{opacity:.88}
+.btn-s{background:transparent;color:var(--text);border:1.5px solid var(--border);padding:14px;border-radius:11px;font-size:14px;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-s:active{background:var(--bg)}
+.btn-p.loading{opacity:.7;pointer-events:none}
 
-/* MODAL */
 .modal{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .modal.open{display:block}
 .modal-hdr{display:flex;align-items:center;gap:12px;padding:13px 16px;position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.07);z-index:10}
@@ -105,7 +112,6 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .modal-title{font-size:16px;font-weight:700}
 .modal-body{padding:14px 16px 40px}
 
-/* REPORT */
 .r-meta{background:var(--navy);border-radius:12px;padding:14px 16px;margin-bottom:12px;color:#fff}
 .r-meta .rrow{display:flex;flex-wrap:wrap;gap:4px 20px;margin-bottom:6px}
 .r-meta .rrow:last-child{margin-bottom:0}
@@ -123,6 +129,9 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .rnum.ok{color:var(--ok)}.rnum.nc{color:var(--nc)}.rnum.obs{color:var(--obs)}.rnum.pend{color:var(--pend)}
 .rloc{flex:1;font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .r-body{padding:10px 13px;font-size:12px}
+.r-foto{margin-bottom:8px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.r-foto img{width:100%;max-height:220px;object-fit:cover;display:block}
+.r-foto-missing{background:var(--nc-bg);color:var(--nc);font-size:11px;font-weight:600;padding:8px 10px;border-radius:8px;margin-bottom:8px;text-align:center}
 .r-dates{color:var(--muted);line-height:1.9;margin-bottom:8px}
 .r-dates strong{color:var(--text)}
 .r-checks{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;margin-bottom:6px}
@@ -169,7 +178,7 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 
 <div class="fab">
   <button class="btn-s" id="btnVerInforme">📋 Ver informe</button>
-  <button class="btn-p" id="btnCompartir">📤 Compartir</button>
+  <button class="btn-p" id="btnPDF">📄 Generar PDF</button>
 </div>
 
 <div class="modal" id="modalInforme">
@@ -180,9 +189,11 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
   <div class="modal-body" id="modalBody"></div>
 </div>
 
+<!-- jsPDF desde CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script>
-var exts = [];
-var counter = 0;
+var exts = [], counter = 0;
 
 var AG = ['Polvo ABC (multipropósito)','Polvo BC','CO2 (dióxido de carbono)',
           'Agua presurizada','Agua pulverizada','Espuma AFFF','Halotron','Clase D'];
@@ -199,12 +210,9 @@ var EB = {ok:'b-ok', nc:'b-nc', obs:'b-obs', pend:'b-pend'};
 var EC = {ok:'s-ok', nc:'s-nc', obs:'s-obs', pend:'s-pend'};
 var ER = {ok:'ok',   nc:'nc',   obs:'obs',   pend:'pend'};
 
-/* ── utilidades ── */
 function getNow() {
-  var d = new Date();
-  var p = function(n){ return String(n).padStart(2,'0'); };
-  return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+
-         ' '+p(d.getHours())+':'+p(d.getMinutes());
+  var d = new Date(), p = function(n){ return String(n).padStart(2,'0'); };
+  return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes());
 }
 function fmtD(v) {
   if (!v) return '—';
@@ -223,54 +231,49 @@ function selOpts(arr, val) {
   return out;
 }
 
-/* ── evento central con delegación ── */
+/* ── eventos delegados ── */
 document.addEventListener('click', function(e) {
   var t = e.target;
-
-  /* Agregar */
-  if (t.id === 'btnAgregar') { addExt(); return; }
-
-  /* Ver informe */
+  if (t.id === 'btnAgregar')    { addExt(); return; }
   if (t.id === 'btnVerInforme') { showReport(); return; }
+  if (t.id === 'btnPDF')        { generarPDF(); return; }
+  if (t.id === 'btnVolver')     { cerrarModal(); return; }
+  if (t.id === 'btnPDFModal')   { cerrarModal(); setTimeout(generarPDF, 200); return; }
 
-  /* Compartir */
-  if (t.id === 'btnCompartir') { compartir(); return; }
-
-  /* Volver del modal */
-  if (t.id === 'btnVolver') { cerrarModal(); return; }
-
-  /* Botón compartir dentro del modal */
-  if (t.id === 'btnCompartirModal') { compartir(); return; }
-
-  /* Toggle card */
   var cardTop = closest(t, '.card-top');
   if (cardTop) { toggleCard(cardTop.dataset.id); return; }
 
-  /* Botones OK / NC / NA */
-  if (t.dataset.action === 'chk') {
-    setChk(t.dataset.eid, t.dataset.key, t.dataset.val);
+  if (t.dataset.action === 'chk') { setChk(t.dataset.eid, t.dataset.key, t.dataset.val); return; }
+  if (t.dataset.action === 'del') {
+    if (confirm('¿Eliminar este extintor?')) delExt(t.dataset.eid);
     return;
   }
-
-  /* Eliminar extintor */
-  if (t.dataset.action === 'del') {
-    if (confirm('¿Eliminar este extintor?')) {
-      delExt(t.dataset.eid);
-    }
+  var fotoTrig = closest(t, '[data-action="foto"]');
+  if (fotoTrig) {
+    var fi = document.getElementById('fotoinput_'+fotoTrig.dataset.eid);
+    if (fi) fi.click();
+    return;
+  }
+  var delFotoBtn = closest(t, '[data-action="delfoto"]');
+  if (delFotoBtn) {
+    if (confirm('¿Quitar la foto?')) delFoto(delFotoBtn.dataset.eid);
     return;
   }
 });
 
-/* change también delegado (selects y dates) */
 document.addEventListener('change', function(e) {
   var t = e.target;
-  if (t.dataset.eid) { syncField(t.dataset.eid, t.dataset.field, t.value); }
+  if (t.dataset.role === 'fotoinput') {
+    var file = t.files && t.files[0];
+    if (file) handleFotoFile(t.dataset.eid, file);
+    t.value = '';
+    return;
+  }
+  if (t.dataset.eid) syncField(t.dataset.eid, t.dataset.field, t.value);
 });
-
-/* input delegado (campos de texto) */
 document.addEventListener('input', function(e) {
   var t = e.target;
-  if (t.dataset.eid) { syncField(t.dataset.eid, t.dataset.field, t.value); }
+  if (t.dataset.eid) syncField(t.dataset.eid, t.dataset.field, t.value);
 });
 
 function closest(el, sel) {
@@ -281,146 +284,194 @@ function closest(el, sel) {
   return null;
 }
 
-/* ── lógica ── */
+/* ── lógica extintores ── */
 function addExt() {
   counter++;
-  var id = 'e' + Date.now();
-  var e = {
-    id:id, num:counter, nro:'', ubicacion:'', agente:'', clase:'',
-    capacidad:'', venc:'', hidro:'', obs:'', resp_nc:'', plazo_nc:'',
-    estado:'pend', checks:{}
-  };
+  var id = 'e'+Date.now();
+  var e = {id:id, num:counter, nro:'', ubicacion:'', agente:'', clase:'',
+           capacidad:'', venc:'', hidro:'', obs:'', resp_nc:'', plazo_nc:'',
+           estado:'pend', foto:null, checks:{}};
   for (var i = 0; i < CHK_KEYS.length; i++) e.checks[CHK_KEYS[i]] = null;
   exts.push(e);
   renderList();
   setTimeout(function(){
-    var el = document.getElementById('card_'+id);
-    if (el) {
-      openCard(id);
-      el.scrollIntoView({behavior:'smooth', block:'start'});
-    }
+    var card = document.getElementById('card_'+id);
+    if (card) { openCard(id); card.scrollIntoView({behavior:'smooth', block:'start'}); }
   }, 80);
 }
 
 function openCard(id) {
-  var b  = document.getElementById('body_'+id);
-  var ch = document.getElementById('chev_'+id);
-  if (b)  b.classList.add('open');
-  if (ch) ch.textContent = '∧';
+  var b = document.getElementById('body_'+id);
+  var c = document.getElementById('chev_'+id);
+  if (b) b.classList.add('open');
+  if (c) c.textContent = '∧';
 }
-
 function toggleCard(id) {
-  var b  = document.getElementById('body_'+id);
-  var ch = document.getElementById('chev_'+id);
+  var b = document.getElementById('body_'+id);
+  var c = document.getElementById('chev_'+id);
   if (!b) return;
   var open = b.classList.toggle('open');
-  if (ch) ch.textContent = open ? '∧' : '⌄';
+  if (c) c.textContent = open ? '∧' : '⌄';
 }
-
 function setChk(eid, key, val) {
-  var e = getExt(eid);
-  if (!e) return;
+  var e = getExt(eid); if (!e) return;
   e.checks[key] = (e.checks[key] === val) ? null : val;
   var cur = e.checks[key];
   var types = ['ok','nc','na'];
   for (var i = 0; i < types.length; i++) {
     var btn = document.getElementById('cb_'+eid+'_'+key+'_'+types[i]);
-    if (btn) btn.className = btn.className.replace(' on','') + (types[i]===cur ? ' on' : '');
+    if (btn) btn.className = btn.className.replace(' on','') + (types[i]===cur?' on':'');
   }
   calcEstado(eid);
 }
-
 function syncField(eid, field, val) {
-  var e = getExt(eid);
-  if (!e) return;
+  var e = getExt(eid); if (!e) return;
   e[field] = val;
-  if (field === 'nro') {
-    var av = document.getElementById('av_'+eid);
-    if (av) av.textContent = val || e.num;
-  }
-  if (field === 'ubicacion') {
-    var cn = document.getElementById('cn_'+eid);
-    if (cn) cn.textContent = val || 'Sin ubicación';
-  }
-  if (field === 'agente' || field === 'capacidad') {
-    var cs = document.getElementById('cs_'+eid);
-    if (cs) cs.textContent = [e.agente, e.capacidad].filter(Boolean).join(' · ') || 'Sin datos';
+  if (field==='nro')       { var av=document.getElementById('av_'+eid);   if(av)  av.textContent = val||e.num; }
+  if (field==='ubicacion') { var cn=document.getElementById('cn_'+eid);   if(cn)  cn.textContent = val||'Sin ubicación'; }
+  if (field==='agente'||field==='capacidad') {
+    var cs=document.getElementById('cs_'+eid);
+    if(cs) cs.textContent = [e.agente,e.capacidad].filter(Boolean).join(' · ')||'Sin datos';
   }
   calcEstado(eid);
 }
-
 function calcEstado(eid) {
-  var e = getExt(eid);
-  if (!e) return;
-  var vals = [];
+  var e = getExt(eid); if (!e) return;
+  var vals=[], answered=0, hasNc=false, hasPend=false;
   for (var k in e.checks) vals.push(e.checks[k]);
-  var answered = 0, hasNc = false, hasPend = false;
-  for (var i = 0; i < vals.length; i++) {
-    if (vals[i] !== null) answered++;
-    if (vals[i] === 'nc') hasNc = true;
-    if (vals[i] === null) hasPend = true;
+  for (var i=0;i<vals.length;i++){
+    if(vals[i]!==null) answered++;
+    if(vals[i]==='nc') hasNc=true;
+    if(vals[i]===null) hasPend=true;
   }
-  if (answered === 0 && !e.venc && !e.hidro) e.estado = 'pend';
-  else if (hasNc) e.estado = 'nc';
-  else if (hasPend) e.estado = 'obs';
-  else e.estado = 'ok';
-
-  var card  = document.getElementById('card_'+eid);
-  var badge = document.getElementById('badge_'+eid);
-  var ncbox = document.getElementById('ncbox_'+eid);
-  if (card)  card.className  = 'card '+EC[e.estado];
-  if (badge) { badge.className = 'badge '+EB[e.estado]; badge.textContent = EL[e.estado]; }
-  if (ncbox) ncbox.style.display = (e.estado === 'nc') ? 'block' : 'none';
+  var hasData = answered>0||e.venc||e.hidro||e.foto;
+  if (!hasData) e.estado='pend';
+  else if (hasNc) e.estado='nc';
+  else if (hasPend||!e.foto) e.estado='obs';
+  else e.estado='ok';
+  var card=document.getElementById('card_'+eid);
+  var badge=document.getElementById('badge_'+eid);
+  var ncbox=document.getElementById('ncbox_'+eid);
+  var warn=document.getElementById('fotowarn_'+eid);
+  if(card)  card.className='card '+EC[e.estado];
+  if(badge){badge.className='badge '+EB[e.estado];badge.textContent=EL[e.estado];}
+  if(ncbox) ncbox.style.display=(e.estado==='nc')?'block':'none';
+  if(warn)  warn.style.display=e.foto?'none':'inline';
   updateStats();
 }
-
 function delExt(eid) {
-  var newExts = [];
-  for (var i = 0; i < exts.length; i++) { if (exts[i].id !== eid) newExts.push(exts[i]); }
-  exts = newExts;
-  renderList();
+  var n=[];
+  for(var i=0;i<exts.length;i++){if(exts[i].id!==eid) n.push(exts[i]);}
+  exts=n; renderList();
+}
+function updateStats() {
+  var ok=0,nc=0,obs=0;
+  for(var i=0;i<exts.length;i++){
+    if(exts[i].estado==='ok')  ok++;
+    if(exts[i].estado==='nc')  nc++;
+    if(exts[i].estado==='obs') obs++;
+  }
+  document.getElementById('sT').textContent=exts.length;
+  document.getElementById('sOk').textContent=ok;
+  document.getElementById('sNc').textContent=nc;
+  document.getElementById('sObs').textContent=obs;
 }
 
-function renderList() {
-  var el = document.getElementById('extList');
-  if (!exts.length) {
-    el.innerHTML = '<div class="empty"><span>🧯</span>No hay extintores registrados.<br>Tocá <strong>+ Agregar</strong> para comenzar.</div>';
-    updateStats();
-    return;
+/* ── foto ── */
+function fotoBoxHtml(e) {
+  if (e.foto) {
+    return '<div class="foto-preview">'+
+      '<img src="'+e.foto+'" alt="Foto extintor">'+
+      '<div class="foto-actions">'+
+        '<button class="btn-foto-sm" data-action="foto" data-eid="'+e.id+'">📷 Repetir foto</button>'+
+        '<button class="btn-foto-sm danger" data-action="delfoto" data-eid="'+e.id+'">🗑 Quitar</button>'+
+      '</div></div>';
   }
-  var html = '';
-  for (var i = 0; i < exts.length; i++) {
-    var e = exts[i];
-    var ncDisp = (e.estado === 'nc') ? 'block' : 'none';
-    var subsub = [e.agente, e.capacidad].filter(Boolean).join(' · ') || 'Sin datos';
+  return '<div class="foto-empty" data-action="foto" data-eid="'+e.id+'">'+
+    '<span class="foto-empty-ico">📷</span>'+
+    '<span class="foto-empty-txt">Tocá para sacar la foto<br>de la estampilla del extintor</span>'+
+  '</div>';
+}
+function handleFotoFile(eid, file) {
+  var box=document.getElementById('fotobox_'+eid);
+  if(box) box.innerHTML='<div class="foto-loading">⏳ Procesando foto...</div>';
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    compressImage(ev.target.result, 1200, 0.78, function(compressed){
+      var e=getExt(eid); if(!e) return;
+      e.foto=compressed;
+      if(box) box.innerHTML=fotoBoxHtml(e);
+      calcEstado(eid);
+    });
+  };
+  reader.onerror=function(){
+    if(box) box.innerHTML='<div class="foto-empty" data-action="foto" data-eid="'+eid+'"><span class="foto-empty-ico">⚠️</span><span class="foto-empty-txt">Error al cargar.<br>Tocá para reintentar.</span></div>';
+  };
+  reader.readAsDataURL(file);
+}
+function compressImage(dataUrl, maxW, q, cb) {
+  var img=new Image();
+  img.onload=function(){
+    var w=img.width, h=img.height;
+    if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+    var canvas=document.createElement('canvas');
+    canvas.width=w; canvas.height=h;
+    canvas.getContext('2d').drawImage(img,0,0,w,h);
+    var out;
+    try{out=canvas.toDataURL('image/jpeg',q);}catch(err){out=dataUrl;}
+    cb(out);
+  };
+  img.onerror=function(){cb(dataUrl);};
+  img.src=dataUrl;
+}
+function delFoto(eid) {
+  var e=getExt(eid); if(!e) return;
+  e.foto=null;
+  var box=document.getElementById('fotobox_'+eid);
+  if(box) box.innerHTML=fotoBoxHtml(e);
+  calcEstado(eid);
+}
 
-    /* checks */
-    var chkHtml = '';
-    for (var ci = 0; ci < CHK_KEYS.length; ci++) {
-      var k = CHK_KEYS[ci];
-      chkHtml += '<div class="chk">'+
+/* ── render lista ── */
+function renderList() {
+  var el=document.getElementById('extList');
+  if(!exts.length){
+    el.innerHTML='<div class="empty"><span>🧯</span>No hay extintores registrados.<br>Tocá <strong>+ Agregar</strong> para comenzar.</div>';
+    updateStats(); return;
+  }
+  var html='';
+  for(var i=0;i<exts.length;i++){
+    var e=exts[i];
+    var sub=[e.agente,e.capacidad].filter(Boolean).join(' · ')||'Sin datos';
+    var ncDisp=(e.estado==='nc')?'block':'none';
+    var chkRows='';
+    for(var ci=0;ci<CHK_KEYS.length;ci++){
+      var k=CHK_KEYS[ci];
+      chkRows+='<div class="chk">'+
         '<span class="chk-lbl">'+CHK_NAMES[k]+'</span>'+
         '<div class="chk-btns">'+
           '<button class="cb cb-ok'+(e.checks[k]==='ok'?' on':'')+'" id="cb_'+e.id+'_'+k+'_ok" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="ok">OK</button>'+
           '<button class="cb cb-nc'+(e.checks[k]==='nc'?' on':'')+'" id="cb_'+e.id+'_'+k+'_nc" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="nc">NC</button>'+
           '<button class="cb cb-na'+(e.checks[k]==='na'?' on':'')+'" id="cb_'+e.id+'_'+k+'_na" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="na">N/A</button>'+
-        '</div>'+
-      '</div>';
+        '</div></div>';
     }
-
-    html +=
+    html+=
       '<div class="card '+EC[e.estado]+'" id="card_'+e.id+'">'+
         '<div class="card-top" data-id="'+e.id+'">'+
           '<div class="avatar" id="av_'+e.id+'">'+(e.nro||e.num)+'</div>'+
           '<div class="cinfo">'+
             '<div class="cname" id="cn_'+e.id+'">'+(e.ubicacion||'Sin ubicación')+'</div>'+
-            '<div class="csub"  id="cs_'+e.id+'">'+subsub+'</div>'+
+            '<div class="csub"  id="cs_'+e.id+'">'+sub+'</div>'+
           '</div>'+
           '<span class="badge '+EB[e.estado]+'" id="badge_'+e.id+'">'+EL[e.estado]+'</span>'+
+          '<span class="foto-warn" id="fotowarn_'+e.id+'" style="display:'+(e.foto?'none':'inline')+'">📷</span>'+
           '<span class="chev" id="chev_'+e.id+'">⌄</span>'+
         '</div>'+
         '<div class="card-body" id="body_'+e.id+'">'+
-
+          '<div class="fsec"><div class="flbl">📷 Foto de la estampilla <span class="req-tag">REQUERIDO</span></div>'+
+            '<div id="fotobox_'+e.id+'">'+fotoBoxHtml(e)+'</div>'+
+            '<input type="file" accept="image/*" capture="environment" id="fotoinput_'+e.id+'" data-eid="'+e.id+'" data-role="fotoinput" style="display:none">'+
+          '</div>'+
           '<div class="fsec"><div class="flbl">📋 Identificación</div>'+
             '<div class="fg2">'+
               '<div class="fg"><label>N° Extintor</label><input type="text" value="'+e.nro+'" placeholder="EXT-01" data-eid="'+e.id+'" data-field="nro" autocomplete="off"></div>'+
@@ -428,130 +479,36 @@ function renderList() {
               '<div class="fg"><label>Agente extintor</label><select data-eid="'+e.id+'" data-field="agente">'+selOpts(AG,e.agente)+'</select></div>'+
               '<div class="fg"><label>Clase</label><select data-eid="'+e.id+'" data-field="clase">'+selOpts(CL,e.clase)+'</select></div>'+
               '<div class="fg"><label>Capacidad</label><select data-eid="'+e.id+'" data-field="capacidad">'+selOpts(CA,e.capacidad)+'</select></div>'+
-            '</div>'+
-          '</div>'+
-
+            '</div></div>'+
           '<div class="fsec"><div class="flbl">📅 Fechas</div>'+
             '<div class="fg2">'+
               '<div class="fg"><label>Vencimiento carga</label><input type="date" value="'+e.venc+'" data-eid="'+e.id+'" data-field="venc"></div>'+
               '<div class="fg"><label>Prueba hidráulica</label><input type="date" value="'+e.hidro+'" data-eid="'+e.id+'" data-field="hidro"></div>'+
-            '</div>'+
-          '</div>'+
-
-          '<div class="fsec"><div class="flbl">✅ Verificación de componentes</div>'+chkHtml+'</div>'+
-
+            '</div></div>'+
+          '<div class="fsec"><div class="flbl">✅ Verificación de componentes</div>'+chkRows+'</div>'+
           '<div class="fsec"><div class="fg1">'+
             '<div class="fg"><label>Observaciones generales</label>'+
               '<textarea placeholder="Detallar hallazgos, daños..." data-eid="'+e.id+'" data-field="obs">'+e.obs+'</textarea>'+
-            '</div>'+
-          '</div></div>'+
-
+            '</div></div></div>'+
           '<div class="nc-box" id="ncbox_'+e.id+'" style="display:'+ncDisp+'">'+
             '<div class="nc-box-title">⚠️ Acción correctiva — No conformidad</div>'+
             '<div class="fg2">'+
               '<div class="fg"><label>Responsable de resolver</label><input type="text" value="'+e.resp_nc+'" placeholder="Nombre / cargo" data-eid="'+e.id+'" data-field="resp_nc" autocomplete="off"></div>'+
               '<div class="fg"><label>Plazo de resolución</label><input type="date" value="'+e.plazo_nc+'" data-eid="'+e.id+'" data-field="plazo_nc"></div>'+
-            '</div>'+
-          '</div>'+
-
+            '</div></div>'+
           '<button class="btn-del" data-action="del" data-eid="'+e.id+'">🗑 Eliminar este extintor</button>'+
         '</div>'+
       '</div>';
   }
-  el.innerHTML = html;
+  el.innerHTML=html;
   updateStats();
 }
 
-function updateStats() {
-  var ok=0, nc=0, obs=0;
-  for (var i=0; i<exts.length; i++) {
-    if (exts[i].estado==='ok')  ok++;
-    if (exts[i].estado==='nc')  nc++;
-    if (exts[i].estado==='obs') obs++;
-  }
-  document.getElementById('sT').textContent   = exts.length;
-  document.getElementById('sOk').textContent  = ok;
-  document.getElementById('sNc').textContent  = nc;
-  document.getElementById('sObs').textContent = obs;
-}
-
-/* ── informe y compartir ── */
-function buildTexto() {
-  var insp  = document.getElementById('inspector').value || '(no indicado)';
-  var turno = document.getElementById('turno').value     || '(no indicado)';
-  var dt = getNow();
-  var ok=0,nc=0,obs=0;
-  for(var i=0;i<exts.length;i++){
-    if(exts[i].estado==='ok') ok++;
-    if(exts[i].estado==='nc') nc++;
-    if(exts[i].estado==='obs') obs++;
-  }
-  var lines = [
-    '=== INSPECCIÓN DE EXTINTORES ===',
-    'Estación YPF · La Plata, Buenos Aires',
-    'Fecha y hora: '+dt,
-    'Inspector/a: '+insp,
-    'Turno / Sector: '+turno,
-    'Total: '+exts.length+' | Conformes: '+ok+' | No conformes: '+nc+' | Con obs.: '+obs,
-    ''
-  ];
-  for (var i = 0; i < exts.length; i++) {
-    var e = exts[i];
-    lines.push('--- EXTINTOR N° '+(e.nro||e.num)+' ---');
-    lines.push('Ubicación: '+(e.ubicacion||'—'));
-    lines.push('Agente: '+(e.agente||'—')+' | Clase: '+(e.clase||'—')+' | Capacidad: '+(e.capacidad||'—'));
-    lines.push('Vencimiento carga: '+fmtD(e.venc)+'  |  Prueba hidráulica: '+fmtD(e.hidro));
-    lines.push('Estado: '+EL[e.estado]);
-    for (var ci = 0; ci < CHK_KEYS.length; ci++) {
-      var k = CHK_KEYS[ci];
-      var lbl = {ok:'OK', nc:'NO CONFORME', na:'N/A'};
-      lines.push('  '+CHK_NAMES[k]+': '+(lbl[e.checks[k]]||'Sin verificar'));
-    }
-    if (e.obs) lines.push('Observaciones: '+e.obs);
-    if (e.estado === 'nc') {
-      lines.push('Responsable NC: '+(e.resp_nc||'No asignado'));
-      lines.push('Plazo: '+fmtD(e.plazo_nc));
-    }
-    lines.push('');
-  }
-  return lines.join('\n');
-}
-
-function compartir() {
-  var txt = buildTexto();
-  if (navigator.share) {
-    navigator.share({title:'Inspección Extintores YPF', text:txt}).catch(function(){ copiar(txt); });
-  } else {
-    copiar(txt);
-  }
-}
-
-function copiar(txt) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(txt).then(function(){
-      alert('✓ Informe copiado.\nPegalo en WhatsApp, mail o donde necesites.');
-    }).catch(function(){ fallback(txt); });
-  } else {
-    fallback(txt);
-  }
-}
-
-function fallback(txt) {
-  var ta = document.createElement('textarea');
-  ta.value = txt;
-  ta.style.cssText = 'position:fixed;top:10%;left:5%;width:90%;height:60%;z-index:9999;font-size:12px;padding:10px;border-radius:8px;border:2px solid #ccc;background:#fff;color:#000';
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-  try { document.execCommand('copy'); } catch(err) {}
-  alert('Seleccioná todo el texto y copialo manualmente (mantené presionado → Seleccionar todo → Copiar)');
-  setTimeout(function(){ document.body.removeChild(ta); }, 8000);
-}
-
+/* ── informe visual ── */
 function showReport() {
-  var insp  = document.getElementById('inspector').value || '(no indicado)';
-  var turno = document.getElementById('turno').value     || '(no indicado)';
-  var dt = getNow();
+  var insp=document.getElementById('inspector').value||'(no indicado)';
+  var turno=document.getElementById('turno').value||'(no indicado)';
+  var dt=getNow();
   var ok=0,nc=0,obs=0,pend=0;
   for(var i=0;i<exts.length;i++){
     if(exts[i].estado==='ok')   ok++;
@@ -559,13 +516,9 @@ function showReport() {
     if(exts[i].estado==='obs')  obs++;
     if(exts[i].estado==='pend') pend++;
   }
-
-  var html =
+  var html=
     '<div class="r-meta">'+
-      '<div class="rrow">'+
-        '<div><strong>Inspector/a</strong><span>'+insp+'</span></div>'+
-        '<div><strong>Turno / Sector</strong><span>'+turno+'</span></div>'+
-      '</div>'+
+      '<div class="rrow"><div><strong>Inspector/a</strong><span>'+insp+'</span></div><div><strong>Turno / Sector</strong><span>'+turno+'</span></div></div>'+
       '<div class="rrow"><div><strong>Fecha y hora</strong><span>'+dt+'</span></div></div>'+
     '</div>'+
     '<div class="r-sum">'+
@@ -574,62 +527,271 @@ function showReport() {
       '<div class="r-sc nc"><div class="n">'+nc+'</div><div class="l">No conf.</div></div>'+
       '<div class="r-sc ob"><div class="n">'+obs+'</div><div class="l">Con obs.</div></div>'+
     '</div>';
-
-  if (!exts.length) {
-    html += '<p style="text-align:center;color:var(--muted);padding:2rem;font-size:14px">No hay extintores registrados.</p>';
-  }
-
-  for (var i = 0; i < exts.length; i++) {
-    var e  = exts[i];
-    var es = ER[e.estado];
-    var chkHtml = '';
-    for (var ci = 0; ci < CHK_KEYS.length; ci++) {
-      var k = CHK_KEYS[ci];
-      var v = e.checks[k] || 'pend';
-      chkHtml += '<div class="rchk"><div class="dot '+v+'"></div>'+CHK_NAMES[k]+'</div>';
+  if(!exts.length) html+='<p style="text-align:center;color:var(--muted);padding:2rem;font-size:14px">No hay extintores registrados.</p>';
+  for(var i=0;i<exts.length;i++){
+    var e=exts[i], es=ER[e.estado];
+    var chkHtml='';
+    for(var ci=0;ci<CHK_KEYS.length;ci++){
+      var k=CHK_KEYS[ci], v=e.checks[k]||'pend';
+      chkHtml+='<div class="rchk"><div class="dot '+v+'"></div>'+CHK_NAMES[k]+'</div>';
     }
-    var ncHtml = '';
-    if (e.estado === 'nc') {
-      ncHtml = '<div class="r-nc"><b>⚠️ Acción correctiva</b>'+
-        '<strong>Responsable:</strong> '+(e.resp_nc||'No asignado')+'<br>'+
-        '<strong>Plazo:</strong> '+fmtD(e.plazo_nc)+
-      '</div>';
-    }
-    html +=
+    var ncHtml=e.estado==='nc'?'<div class="r-nc"><b>⚠️ Acción correctiva</b><strong>Responsable:</strong> '+(e.resp_nc||'No asignado')+'<br><strong>Plazo:</strong> '+fmtD(e.plazo_nc)+'</div>':'';
+    var fotoHtml=e.foto
+      ?'<div class="r-foto"><img src="'+e.foto+'" alt="Foto"></div>'
+      :'<div class="r-foto-missing">📷 Falta foto de la estampilla</div>';
+    html+=
       '<div class="r-card">'+
-        '<div class="r-card-hdr '+es+'">'+
-          '<span class="rnum '+es+'">N° '+(e.nro||e.num)+'</span>'+
-          '<span class="rloc">'+(e.ubicacion||'Sin ubicación')+(e.agente?' · '+e.agente:'')+'</span>'+
-          '<span class="badge '+EB[e.estado]+'">'+EL[e.estado]+'</span>'+
-        '</div>'+
-        '<div class="r-body">'+
-          '<div class="r-dates">'+
-            '<strong>Clase:</strong> '+(e.clase||'—')+'&nbsp;&nbsp;'+
-            '<strong>Capacidad:</strong> '+(e.capacidad||'—')+'<br>'+
-            '<strong>Vencimiento:</strong> '+fmtD(e.venc)+'&nbsp;&nbsp;'+
-            '<strong>Prueba hidráulica:</strong> '+fmtD(e.hidro)+
-          '</div>'+
+        '<div class="r-card-hdr '+es+'"><span class="rnum '+es+'">N° '+(e.nro||e.num)+'</span><span class="rloc">'+(e.ubicacion||'Sin ubicación')+(e.agente?' · '+e.agente:'')+'</span><span class="badge '+EB[e.estado]+'">'+EL[e.estado]+'</span></div>'+
+        '<div class="r-body">'+fotoHtml+
+          '<div class="r-dates"><strong>Clase:</strong> '+(e.clase||'—')+'&nbsp;&nbsp;<strong>Capacidad:</strong> '+(e.capacidad||'—')+'<br><strong>Vencimiento:</strong> '+fmtD(e.venc)+'&nbsp;&nbsp;<strong>Prueba hidráulica:</strong> '+fmtD(e.hidro)+'</div>'+
           '<div class="r-checks">'+chkHtml+'</div>'+
-          (e.obs ? '<div class="r-obs"><b>Obs:</b> '+e.obs+'</div>' : '')+
-          ncHtml+
-        '</div>'+
-      '</div>';
+          (e.obs?'<div class="r-obs"><b>Obs:</b> '+e.obs+'</div>':'')+ncHtml+
+        '</div></div>';
   }
-
-  html +=
+  html+=
     '<div class="r-actions">'+
       '<button class="btn-s" id="btnVolver2" onclick="cerrarModal()">← Volver</button>'+
-      '<button class="btn-p" id="btnCompartirModal">📤 Compartir</button>'+
-    '</div>'+
-    '<div class="hint"><strong>💡 Para obtener el PDF:</strong> Usá "Compartir" para enviar el texto por WhatsApp o mail. El PDF se genera desde la PC con el script Python que te entregamos.</div>';
-
-  document.getElementById('modalBody').innerHTML = html;
+      '<button class="btn-p" id="btnPDFModal">📄 Generar PDF</button>'+
+    '</div>';
+  document.getElementById('modalBody').innerHTML=html;
   document.getElementById('modalInforme').classList.add('open');
-  document.getElementById('modalInforme').scrollTop = 0;
+  document.getElementById('modalInforme').scrollTop=0;
+}
+function cerrarModal(){document.getElementById('modalInforme').classList.remove('open');}
+
+/* ══════════════════════════════════════════════
+   GENERADOR DE PDF  (jsPDF - corre en Safari/iPhone)
+   ══════════════════════════════════════════════ */
+function generarPDF() {
+  var jsPDFLib = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+  if (!jsPDFLib) {
+    alert('La librería PDF todavía se está cargando. Esperá un momento e intentá de nuevo.');
+    return;
+  }
+
+  var btnPDF = document.getElementById('btnPDF');
+  if (btnPDF) { btnPDF.classList.add('loading'); btnPDF.textContent = '⏳ Generando...'; }
+
+  setTimeout(function() {
+    try {
+      _buildPDF(jsPDFLib);
+    } catch(err) {
+      alert('Error al generar el PDF: ' + err.message);
+    } finally {
+      if (btnPDF) { btnPDF.classList.remove('loading'); btnPDF.textContent = '📄 Generar PDF'; }
+    }
+  }, 100);
 }
 
-function cerrarModal() {
-  document.getElementById('modalInforme').classList.remove('open');
+function _buildPDF(jsPDFLib) {
+  var insp  = document.getElementById('inspector').value || '(no indicado)';
+  var turno = document.getElementById('turno').value     || '(no indicado)';
+  var dt    = getNow();
+
+  var doc = new jsPDFLib({ orientation:'portrait', unit:'mm', format:'a4' });
+  var PW = 210, PH = 297, ML = 14, MR = 14, CW = PW - ML - MR;
+  var y = 0;
+
+  /* paleta */
+  var C = {
+    navy:[13,27,42], red:[217,48,37],
+    ok:[46,125,50],  okBg:[232,245,233],
+    nc:[198,40,40],  ncBg:[255,235,238],
+    obs:[230,81,0],  obsBg:[255,243,224],
+    pend:[117,117,117], pendBg:[245,245,245],
+    white:[255,255,255], black:[26,26,46],
+    gray:[107,114,128], lgray:[221,225,231],
+    bg:[240,242,245]
+  };
+
+  function stateColors(estado) {
+    if (estado==='ok')   return {fg:C.ok,  bg:C.okBg};
+    if (estado==='nc')   return {fg:C.nc,  bg:C.ncBg};
+    if (estado==='obs')  return {fg:C.obs, bg:C.obsBg};
+    return {fg:C.pend, bg:C.pendBg};
+  }
+
+  function checkY(needed) { if (y + needed > PH - 14) { doc.addPage(); y = 16; } }
+  function setFill(rgb)   { doc.setFillColor(rgb[0], rgb[1], rgb[2]); }
+  function setDraw(rgb)   { doc.setDrawColor(rgb[0], rgb[1], rgb[2]); }
+  function setTxt(rgb)    { doc.setTextColor(rgb[0], rgb[1], rgb[2]); }
+  function setFont(style, size) { doc.setFont('helvetica', style); doc.setFontSize(size); }
+
+  function addPageFooter(pageNum, totalPages) {
+    setFont('normal', 6.5); setTxt(C.gray);
+    doc.text('Inspección de Extintores YPF  ·  La Plata, Buenos Aires  ·  '+dt,
+      ML, PH-6);
+    doc.text('Página '+pageNum+' de '+totalPages, PW-ML, PH-6, {align:'right'});
+  }
+
+  /* ─── ENCABEZADO ─── */
+  setFill(C.navy); doc.rect(0, 0, PW, 26, 'F');
+  setFill(C.red);  doc.roundedRect(ML, 6, 16, 14, 2, 2, 'F');
+  setFont('bold', 10); setTxt(C.white);
+  doc.text('YPF', ML+8, 14.5, {align:'center'});
+  setFont('bold', 13); setTxt(C.white);
+  doc.text('INSPECCIÓN DE EXTINTORES', ML+20, 13);
+  setFont('normal', 8); setTxt([122,144,168]);
+  doc.text('Estación de Servicio  ·  La Plata, Buenos Aires', ML+20, 19.5);
+  y = 32;
+
+  /* ─── DATOS DE LA INSPECCIÓN ─── */
+  setFill(C.bg); doc.roundedRect(ML, y, CW, 22, 2, 2, 'F');
+  setFont('bold', 7); setTxt(C.gray);
+  doc.text('DATOS DE LA INSPECCIÓN', ML+4, y+5);
+  setFont('normal', 8.5); setTxt(C.black);
+  var ok=0,nc=0,obs=0;
+  for(var i=0;i<exts.length;i++){
+    if(exts[i].estado==='ok')  ok++;
+    if(exts[i].estado==='nc')  nc++;
+    if(exts[i].estado==='obs') obs++;
+  }
+  var halfX = ML + CW/2 + 4;
+  doc.text('Inspector/a:', ML+4, y+11);   setFont('bold',8.5); doc.text(insp, ML+24, y+11);
+  setFont('normal',8.5);
+  doc.text('Turno / Sector:', halfX, y+11); setFont('bold',8.5); doc.text(turno, halfX+22, y+11);
+  setFont('normal',8.5);
+  doc.text('Fecha y hora:', ML+4, y+17);   setFont('bold',8.5); doc.text(dt, ML+24, y+17);
+  setFont('normal',8.5);
+  doc.text('Total: '+exts.length+'  Conformes: '+ok+'  No conformes: '+nc+'  Con obs.: '+obs, halfX, y+17);
+  y += 27;
+
+  /* ─── CADA EXTINTOR ─── */
+  for (var i=0; i<exts.length; i++) {
+    var e = exts[i];
+    var sc = stateColors(e.estado);
+    var estLbl = EL[e.estado] || 'Pendiente';
+
+    /* Calcular altura del bloque para ver si entra */
+    var blockMin = 52; /* mínimo sin foto */
+    checkY(blockMin);
+
+    /* Cabecera del extintor */
+    setFill(sc.fg); doc.rect(ML, y, CW, 8, 'F');
+    setFont('bold', 9.5); setTxt(C.white);
+    doc.text('N° '+(e.nro||e.num)+'  '+( e.ubicacion||'Sin ubicación'), ML+3, y+5.5);
+    setFont('bold', 8.5);
+    doc.text(estLbl.toUpperCase(), PW-MR-2, y+5.5, {align:'right'});
+    y += 10;
+
+    /* Datos técnicos */
+    setFill(C.bg); doc.rect(ML, y, CW, 10, 'F');
+    setFont('normal', 8); setTxt(C.black);
+    var col2 = ML + CW/2 + 2;
+    doc.text('Agente: ', ML+3, y+4);     setFont('bold',8); doc.text(e.agente||'—', ML+18, y+4);
+    setFont('normal',8); doc.text('Clase: ', col2, y+4);    setFont('bold',8); doc.text(e.clase||'—', col2+12, y+4);
+    setFont('normal',8); doc.text('Capacidad: ', ML+3, y+8.5); setFont('bold',8); doc.text(e.capacidad||'—', ML+22, y+8.5);
+    setFont('normal',8); doc.text('Vencimiento: ', col2, y+8.5); setFont('bold',8); doc.text(fmtD(e.venc), col2+22, y+8.5);
+    y += 12;
+
+    /* Prueba hidráulica */
+    setFont('normal',8); setTxt(C.black);
+    doc.text('Prueba hidráulica: ', ML+3, y+4); setFont('bold',8); doc.text(fmtD(e.hidro), ML+36, y+4);
+    y += 8;
+
+    /* Foto (si existe) */
+    if (e.foto) {
+      var fotoH = 52;
+      checkY(fotoH + 4);
+      try {
+        setDraw(C.lgray); doc.setLineWidth(0.3);
+        doc.rect(ML, y, CW, fotoH);
+        doc.addImage(e.foto, 'JPEG', ML+0.5, y+0.5, CW-1, fotoH-1, undefined, 'MEDIUM');
+        y += fotoH + 3;
+      } catch(imgErr) {
+        setFill(C.bg); doc.rect(ML, y, CW, 8, 'F');
+        setFont('italic',8); setTxt(C.gray);
+        doc.text('(Foto no disponible en PDF)', ML+4, y+5.5);
+        y += 10;
+      }
+    } else {
+      checkY(10);
+      setFill(C.ncBg); doc.rect(ML, y, CW, 8, 'F');
+      setFont('bold',8); setTxt(C.nc);
+      doc.text('Foto de la estampilla: FALTANTE', ML+4, y+5.5);
+      y += 10;
+    }
+
+    /* Grilla de verificación — 4 por fila */
+    var cw4 = CW/4;
+    for (var row=0; row<2; row++) {
+      checkY(14);
+      for (var col=0; col<4; col++) {
+        var ci = row*4 + col;
+        if (ci >= CHK_KEYS.length) break;
+        var k = CHK_KEYS[ci];
+        var v = e.checks[k];
+        var vsc = stateColors(v || 'pend');
+        var lbl = v==='ok'?'OK' : v==='nc'?'NC' : v==='na'?'N/A' : '—';
+        var cx = ML + col*cw4;
+        setFill(vsc.bg); doc.rect(cx, y, cw4-0.5, 12, 'F');
+        setFont('normal', 6); setTxt(C.gray);
+        var shortNames = {
+          pintura:'Pintura/cuerpo', manguera:'Manguera', boquilla:'Boquilla/válvula',
+          precinto:'Precinto', manometro:'Manómetro', senalizacion:'Señalización',
+          soporte:'Soporte/gancho', carga_vigente:'Carga vigente'
+        };
+        doc.text(shortNames[k]||k, cx+2, y+4);
+        setFont('bold', 9); setTxt(vsc.fg);
+        doc.text(lbl, cx + cw4/2, y+9.5, {align:'center'});
+      }
+      y += 13;
+    }
+
+    /* Observaciones */
+    if (e.obs) {
+      checkY(10);
+      setFont('normal',8); setTxt(C.black);
+      doc.text('Obs: ', ML+3, y+4); setFont('italic',8);
+      var obsLines = doc.splitTextToSize(e.obs, CW-20);
+      doc.text(obsLines, ML+14, y+4);
+      y += 4 + obsLines.length * 3.8;
+    }
+
+    /* Acción correctiva (NC) */
+    if (e.estado === 'nc') {
+      checkY(16);
+      setFill(C.ncBg); doc.rect(ML, y, CW, 14, 'F');
+      setDraw(C.nc); doc.setLineWidth(0.4); doc.rect(ML, y, CW, 14);
+      setFont('bold', 7.5); setTxt(C.nc);
+      doc.text('ACCIÓN CORRECTIVA', ML+3, y+5);
+      setFont('normal', 8); setTxt(C.black);
+      doc.text('Responsable: ', ML+3, y+10.5); setFont('bold',8); doc.text(e.resp_nc||'No asignado', ML+25, y+10.5);
+      setFont('normal',8); doc.text('Plazo: ', ML + CW/2+2, y+10.5); setFont('bold',8); doc.text(fmtD(e.plazo_nc)||'No definido', ML+CW/2+14, y+10.5);
+      y += 17;
+    }
+
+    /* Separador */
+    setDraw(C.lgray); doc.setLineWidth(0.3);
+    doc.line(ML, y, PW-MR, y);
+    y += 5;
+  }
+
+  /* ─── FIRMAS ─── */
+  checkY(28);
+  y += 4;
+  setFill(C.bg); doc.roundedRect(ML, y, CW, 22, 2, 2, 'F');
+  setFont('bold',7); setTxt(C.gray);
+  doc.text('FIRMA DEL INSPECTOR/A', ML+4, y+6);
+  doc.text('FIRMA JEFE DE TURNO', ML+CW/2+4, y+6);
+  setDraw(C.lgray); doc.setLineWidth(0.4);
+  doc.line(ML+4, y+17, ML+60, y+17);
+  doc.line(ML+CW/2+4, y+17, ML+CW/2+60, y+17);
+  setFont('normal',7); setTxt(C.gray);
+  doc.text(insp, ML+4, y+20);
+  doc.text('Nombre y aclaración', ML+CW/2+4, y+20);
+  y += 26;
+
+  /* ─── PIES DE PÁGINA ─── */
+  var totalPages = doc.getNumberOfPages();
+  for (var pg=1; pg<=totalPages; pg++) {
+    doc.setPage(pg);
+    addPageFooter(pg, totalPages);
+  }
+
+  /* ─── GUARDAR ─── */
+  var fecha = new Date().toISOString().slice(0,10);
+  doc.save('inspeccion_extintores_'+fecha+'.pdf');
 }
 
 renderList();
