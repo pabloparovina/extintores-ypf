@@ -691,13 +691,41 @@ function _buildPDF(jsPDFLib) {
 
     /* Foto (si existe) */
     if (e.foto) {
-      var fotoH = 52;
-      checkY(fotoH + 4);
       try {
+        /* Obtener dimensiones reales de la imagen para respetar proporciones */
+        var imgProps = doc.getImageProperties(e.foto);
+        var imgW = imgProps.width;
+        var imgH = imgProps.height;
+
+        /* Ancho máximo = 90mm (tamaño mediano, centrado) */
+        var maxW = 90;
+        var maxH = 60;
+        var ratio = imgW / imgH;
+
+        var drawW, drawH;
+        if (ratio >= 1) {
+          /* landscape o cuadrada */
+          drawW = Math.min(maxW, CW);
+          drawH = drawW / ratio;
+          if (drawH > maxH) { drawH = maxH; drawW = drawH * ratio; }
+        } else {
+          /* portrait */
+          drawH = maxH;
+          drawW = drawH * ratio;
+          if (drawW > maxW) { drawW = maxW; drawH = drawW / ratio; }
+        }
+
+        var drawX = ML + (CW - drawW) / 2; /* centrada horizontalmente */
+
+        checkY(drawH + 6);
         setDraw(C.lgray); doc.setLineWidth(0.3);
-        doc.rect(ML, y, CW, fotoH);
-        doc.addImage(e.foto, 'JPEG', ML+0.5, y+0.5, CW-1, fotoH-1, undefined, 'MEDIUM');
-        y += fotoH + 3;
+        doc.rect(drawX - 1, y, drawW + 2, drawH + 2);
+        doc.addImage(e.foto, 'JPEG', drawX, y + 1, drawW, drawH, undefined, 'MEDIUM');
+
+        /* etiqueta debajo */
+        setFont('normal', 6.5); setTxt(C.gray);
+        doc.text('Foto de la estampilla', ML + CW/2, y + drawH + 4, {align:'center'});
+        y += drawH + 7;
       } catch(imgErr) {
         setFill(C.bg); doc.rect(ML, y, CW, 8, 'F');
         setFont('italic',8); setTxt(C.gray);
