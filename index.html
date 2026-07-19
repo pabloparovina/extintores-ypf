@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Extintores YPF</title>
+<title>Control de Extintores</title>
 <style>
 :root{
   --red:#D93025;--navy:#0D1B2A;
@@ -18,7 +18,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text)}
-
 .hdr{background:var(--navy);padding:14px 16px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
 .hdr-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .logo{background:var(--red);color:#fff;font-weight:800;font-size:12px;letter-spacing:1.5px;padding:5px 9px;border-radius:5px;flex-shrink:0}
@@ -28,21 +27,17 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .meta-inp{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:10px 12px;font-size:14px;width:100%;outline:none;font-family:inherit}
 .meta-inp::placeholder{color:rgba(255,255,255,.35)}
 .meta-inp:focus{border-color:var(--red)}
-
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px}
 .sc{background:var(--card);border-radius:10px;padding:9px 4px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.07)}
 .sc .n{font-size:22px;font-weight:700;color:var(--text)}
 .sc .l{font-size:10px;color:var(--muted);margin-top:1px}
 .sc.ok .n{color:var(--ok)}.sc.nc .n{color:var(--nc)}.sc.ob .n{color:var(--obs)}
-
 .list{padding:0 16px 110px}
 .list-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .list-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
 .btn-add{background:var(--red);color:#fff;border:none;padding:11px 20px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;min-height:46px;box-shadow:0 3px 10px rgba(217,48,37,.35);font-family:inherit}
-
 .empty{text-align:center;padding:48px 20px;color:var(--muted);font-size:14px;line-height:2}
 .empty span{font-size:44px;display:block;margin-bottom:10px;opacity:.3}
-
 .card{background:var(--card);border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);border-left:4px solid var(--border)}
 .card.s-ok{border-left-color:var(--ok)}.card.s-nc{border-left-color:var(--nc)}
 .card.s-obs{border-left-color:var(--obs)}.card.s-pend{border-left-color:var(--pend)}
@@ -54,13 +49,11 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .badge{padding:4px 9px;border-radius:5px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap}
 .b-ok{background:var(--ok-bg);color:var(--ok)}.b-nc{background:var(--nc-bg);color:var(--nc)}
 .b-obs{background:var(--obs-bg);color:var(--obs)}.b-pend{background:var(--pend-bg);color:var(--pend)}
-.chev{font-size:18px;color:var(--muted);flex-shrink:0;transition:transform .22s;line-height:1}
+.chev{font-size:18px;color:var(--muted);flex-shrink:0;line-height:1}
 .foto-warn{font-size:14px;flex-shrink:0;line-height:1}
 .req-tag{color:var(--nc);font-size:10px;font-weight:700;margin-left:4px}
-
 .card-body{display:none;border-top:1px solid var(--border);padding:14px}
 .card-body.open{display:block}
-
 .fsec{margin-bottom:16px}
 .flbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -70,48 +63,50 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .fg input,.fg select,.fg textarea{font-size:15px;padding:10px 12px;border:1.5px solid var(--border);border-radius:9px;background:var(--inp);color:var(--text);font-family:inherit;width:100%;outline:none;min-height:46px;-webkit-appearance:none;appearance:none}
 .fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red);background:#fff}
-.fg textarea{resize:none;min-height:68px;line-height:1.5;font-size:14px}
-.fg input[type="date"]{min-height:46px}
-
-.foto-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:30px 14px;border:2px dashed #FFB74D;border-radius:10px;background:#FFF8E1;cursor:pointer;text-align:center}
+.fg textarea{resize:none;min-height:60px;line-height:1.5;font-size:14px}
+/* FOTO */
+.foto-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:28px 14px;border:2px dashed #FFB74D;border-radius:10px;background:#FFF8E1;cursor:pointer;text-align:center}
 .foto-empty-ico{font-size:32px;line-height:1}
 .foto-empty-txt{font-size:12px;color:#8A6116;line-height:1.5;font-weight:500}
-.foto-loading{display:flex;align-items:center;justify-content:center;padding:30px 14px;border-radius:10px;background:var(--inp);font-size:13px;color:var(--muted)}
+.foto-loading{display:flex;align-items:center;justify-content:center;padding:28px 14px;border-radius:10px;background:var(--inp);font-size:13px;color:var(--muted)}
 .foto-preview{border-radius:10px;overflow:hidden;border:1.5px solid var(--border)}
-.foto-preview img{width:100%;max-height:240px;object-fit:cover;display:block}
+.foto-preview img{display:block;max-width:100%;max-height:200px;width:auto;height:auto;margin:0 auto;background:var(--bg)}
 .foto-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;background:var(--card)}
 .btn-foto-sm{padding:9px;font-size:12px;font-weight:600;border-radius:8px;border:1.5px solid var(--border);background:var(--inp);color:var(--text);cursor:pointer;font-family:inherit;min-height:38px}
 .btn-foto-sm.danger{border-color:#FFCDD2;color:var(--nc);background:var(--nc-bg)}
-
-.chk{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);gap:8px}
-.chk:last-child{border-bottom:none}
+/* CHECKS */
+.chk-wrap{border-bottom:1px solid var(--border)}
+.chk-wrap:last-child{border-bottom:none}
+.chk{display:flex;align-items:center;justify-content:space-between;padding:11px 0;gap:8px}
 .chk-lbl{font-size:13px;color:var(--text);flex:1;line-height:1.3}
 .chk-btns{display:flex;gap:5px;flex-shrink:0}
 .cb{padding:8px 11px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid;background:transparent;min-width:44px;min-height:38px;font-family:inherit}
 .cb-ok{border-color:var(--ok);color:var(--ok)}.cb-ok.on{background:var(--ok);color:#fff}
 .cb-nc{border-color:var(--nc);color:var(--nc)}.cb-nc.on{background:var(--nc);color:#fff}
 .cb-na{border-color:var(--pend);color:var(--pend)}.cb-na.on{background:var(--pend);color:#fff}
-
-.nc-box{background:var(--nc-bg);border:1.5px solid #FFCDD2;border-radius:10px;padding:12px 13px;margin-top:14px}
-.nc-box-title{font-size:12px;font-weight:700;color:var(--nc);margin-bottom:10px}
-.nc-box .fg label{color:var(--nc)}
-.nc-box .fg input{border-color:#FFCDD2;background:#fff}
+/* NC por ítem */
+.nc-item-box{background:var(--nc-bg);border:1.5px solid #FFCDD2;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.nc-item-title{font-size:11px;font-weight:700;color:var(--nc);margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.nc-punto-tag{font-size:11px;color:var(--nc);margin-bottom:8px;padding:5px 8px;background:rgba(198,40,40,.12);border-radius:5px;font-weight:600;display:block}
+.nc-item-box .fg label{color:var(--nc)}
+.nc-item-box .fg input,.nc-item-box .fg textarea{border-color:#FFCDD2;background:#fff;font-size:14px;min-height:40px}
+.nc-item-box .fg textarea{min-height:56px}
 .btn-del{width:100%;padding:12px;margin-top:14px;font-size:13px;color:var(--nc);border:1.5px solid #FFCDD2;border-radius:10px;background:transparent;cursor:pointer;min-height:46px;font-family:inherit;font-weight:600}
-
+/* FAB */
 .fab{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:10px 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:99;box-shadow:0 -4px 16px rgba(0,0,0,.1)}
 .btn-p{background:var(--red);color:#fff;border:none;padding:14px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;min-height:52px;font-family:inherit;box-shadow:0 3px 10px rgba(217,48,37,.3);display:flex;align-items:center;justify-content:center;gap:6px}
 .btn-p:active{opacity:.88}
 .btn-s{background:transparent;color:var(--text);border:1.5px solid var(--border);padding:14px;border-radius:11px;font-size:14px;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px}
 .btn-s:active{background:var(--bg)}
 .btn-p.loading{opacity:.7;pointer-events:none}
-
+/* MODAL */
 .modal{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .modal.open{display:block}
 .modal-hdr{display:flex;align-items:center;gap:12px;padding:13px 16px;position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.07);z-index:10}
 .btn-back{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;background:transparent;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600;color:var(--text);min-height:44px}
 .modal-title{font-size:16px;font-weight:700}
 .modal-body{padding:14px 16px 40px}
-
+/* INFORME */
 .r-meta{background:var(--navy);border-radius:12px;padding:14px 16px;margin-bottom:12px;color:#fff}
 .r-meta .rrow{display:flex;flex-wrap:wrap;gap:4px 20px;margin-bottom:6px}
 .r-meta .rrow:last-child{margin-bottom:0}
@@ -129,8 +124,8 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .rnum.ok{color:var(--ok)}.rnum.nc{color:var(--nc)}.rnum.obs{color:var(--obs)}.rnum.pend{color:var(--pend)}
 .rloc{flex:1;font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .r-body{padding:10px 13px;font-size:12px}
-.r-foto{margin-bottom:8px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
-.r-foto img{width:100%;max-height:220px;object-fit:cover;display:block}
+.r-foto{margin-bottom:8px;border-radius:8px;overflow:hidden;border:1px solid var(--border);text-align:center;background:#000}
+.r-foto img{max-width:100%;max-height:220px;object-fit:contain;display:inline-block}
 .r-foto-missing{background:var(--nc-bg);color:var(--nc);font-size:11px;font-weight:600;padding:8px 10px;border-radius:8px;margin-bottom:8px;text-align:center}
 .r-dates{color:var(--muted);line-height:1.9;margin-bottom:8px}
 .r-dates strong{color:var(--text)}
@@ -138,9 +133,12 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 .rchk{display:flex;align-items:center;gap:5px;font-size:11px}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1.5px solid var(--pend);background:var(--pend-bg)}
 .dot.ok{background:var(--ok-bg);border-color:var(--ok)}.dot.nc{background:var(--nc-bg);border-color:var(--nc)}.dot.na{background:var(--obs-bg);border-color:var(--obs)}
+.r-nc-list{margin-top:8px}
+.r-nc-item{background:var(--nc-bg);border:1px solid #FFCDD2;border-radius:7px;padding:8px 10px;margin-bottom:6px;font-size:11px}
+.r-nc-item b{display:block;font-size:10px;text-transform:uppercase;color:var(--nc);margin-bottom:4px;letter-spacing:.3px}
+.r-nc-row{color:var(--text);margin-bottom:2px}
+.r-nc-row span{color:var(--muted)}
 .r-obs{font-style:italic;color:var(--muted);border-top:1px solid var(--border);padding-top:6px;margin-top:6px;font-size:11px}
-.r-nc{background:var(--nc-bg);border:1px solid #FFCDD2;border-radius:8px;padding:9px 12px;margin-top:8px;font-size:11px;color:var(--nc)}
-.r-nc b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
 .r-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .hint{background:var(--card);border-radius:10px;padding:13px;font-size:12px;color:var(--muted);line-height:1.7;margin-top:12px;border:1px dashed var(--border)}
 .hint strong{color:var(--text)}
@@ -150,8 +148,8 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
 
 <div class="hdr">
   <div class="hdr-top">
-    <span class="logo">YPF</span>
-    <div><h1>Inspección de Extintores</h1><p>Estación de Servicio · La Plata, Bs. As.</p></div>
+    <span class="logo">🧯</span>
+    <div><h1>Control de Extintores</h1><p>Inspección y Verificación · La Plata, Bs. As.</p></div>
   </div>
   <div class="meta-row">
     <input class="meta-inp" id="inspector" type="text" placeholder="Inspector/a" autocomplete="off">
@@ -189,9 +187,7 @@ html,body{min-height:100%;background:var(--bg);font-family:'Segoe UI',system-ui,
   <div class="modal-body" id="modalBody"></div>
 </div>
 
-<!-- jsPDF desde CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
 var exts = [], counter = 0;
 
@@ -214,10 +210,11 @@ function getNow() {
   var d = new Date(), p = function(n){ return String(n).padStart(2,'0'); };
   return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes());
 }
-function fmtD(v) {
+/* YYYY-MM → MM/YYYY */
+function fmtM(v) {
   if (!v) return '—';
   var pts = v.split('-');
-  return pts.length === 3 ? pts[2]+'/'+pts[1]+'/'+pts[0] : v;
+  return pts.length === 2 ? pts[1]+'/'+pts[0] : v;
 }
 function getExt(id) {
   for (var i = 0; i < exts.length; i++) { if (exts[i].id === id) return exts[i]; }
@@ -225,15 +222,13 @@ function getExt(id) {
 }
 function selOpts(arr, val) {
   var out = '<option value="">Seleccionar...</option>';
-  for (var i = 0; i < arr.length; i++) {
-    out += '<option'+(arr[i]===val?' selected':'')+'>'+arr[i]+'</option>';
-  }
+  for (var i = 0; i < arr.length; i++) out += '<option'+(arr[i]===val?' selected':'')+'>'+arr[i]+'</option>';
   return out;
 }
 
 /* ── eventos delegados ── */
-document.addEventListener('click', function(e) {
-  var t = e.target;
+document.addEventListener('click', function(ev) {
+  var t = ev.target;
   if (t.id === 'btnAgregar')    { addExt(); return; }
   if (t.id === 'btnVerInforme') { showReport(); return; }
   if (t.id === 'btnPDF')        { generarPDF(); return; }
@@ -249,49 +244,41 @@ document.addEventListener('click', function(e) {
     return;
   }
   var fotoTrig = closest(t, '[data-action="foto"]');
-  if (fotoTrig) {
-    var fi = document.getElementById('fotoinput_'+fotoTrig.dataset.eid);
-    if (fi) fi.click();
-    return;
-  }
+  if (fotoTrig) { var fi = document.getElementById('fotoinput_'+fotoTrig.dataset.eid); if (fi) fi.click(); return; }
   var delFotoBtn = closest(t, '[data-action="delfoto"]');
-  if (delFotoBtn) {
-    if (confirm('¿Quitar la foto?')) delFoto(delFotoBtn.dataset.eid);
-    return;
-  }
+  if (delFotoBtn) { if (confirm('¿Quitar la foto?')) delFoto(delFotoBtn.dataset.eid); return; }
 });
 
-document.addEventListener('change', function(e) {
-  var t = e.target;
+document.addEventListener('change', function(ev) {
+  var t = ev.target;
   if (t.dataset.role === 'fotoinput') {
     var file = t.files && t.files[0];
     if (file) handleFotoFile(t.dataset.eid, file);
-    t.value = '';
-    return;
+    t.value = ''; return;
   }
-  if (t.dataset.eid) syncField(t.dataset.eid, t.dataset.field, t.value);
+  if (t.dataset.eid) syncField(t.dataset.eid, t.dataset.field, t.dataset.nckey, t.value);
 });
-document.addEventListener('input', function(e) {
-  var t = e.target;
-  if (t.dataset.eid) syncField(t.dataset.eid, t.dataset.field, t.value);
+document.addEventListener('input', function(ev) {
+  var t = ev.target;
+  if (t.dataset.eid) syncField(t.dataset.eid, t.dataset.field, t.dataset.nckey, t.value);
 });
 
 function closest(el, sel) {
-  while (el && el !== document) {
-    if (el.matches && el.matches(sel)) return el;
-    el = el.parentNode;
-  }
+  while (el && el !== document) { if (el.matches && el.matches(sel)) return el; el = el.parentNode; }
   return null;
 }
 
-/* ── lógica extintores ── */
+/* ── crear extintor ── */
 function addExt() {
   counter++;
   var id = 'e'+Date.now();
   var e = {id:id, num:counter, nro:'', ubicacion:'', agente:'', clase:'',
-           capacidad:'', venc:'', hidro:'', obs:'', resp_nc:'', plazo_nc:'',
-           estado:'pend', foto:null, checks:{}};
-  for (var i = 0; i < CHK_KEYS.length; i++) e.checks[CHK_KEYS[i]] = null;
+           capacidad:'', venc:'', hidro:'', obs:'',
+           estado:'pend', foto:null, checks:{}, nc_details:{}};
+  for (var i = 0; i < CHK_KEYS.length; i++) {
+    e.checks[CHK_KEYS[i]] = null;
+    e.nc_details[CHK_KEYS[i]] = {desc:'', resp:'', plazo:''};
+  }
   exts.push(e);
   renderList();
   setTimeout(function(){
@@ -313,6 +300,7 @@ function toggleCard(id) {
   var open = b.classList.toggle('open');
   if (c) c.textContent = open ? '∧' : '⌄';
 }
+
 function setChk(eid, key, val) {
   var e = getExt(eid); if (!e) return;
   e.checks[key] = (e.checks[key] === val) ? null : val;
@@ -322,19 +310,30 @@ function setChk(eid, key, val) {
     var btn = document.getElementById('cb_'+eid+'_'+key+'_'+types[i]);
     if (btn) btn.className = btn.className.replace(' on','') + (types[i]===cur?' on':'');
   }
+  /* mostrar / ocultar ficha NC del ítem */
+  var ncBox = document.getElementById('nc_'+eid+'_'+key);
+  if (ncBox) ncBox.style.display = (cur === 'nc') ? 'block' : 'none';
   calcEstado(eid);
 }
-function syncField(eid, field, val) {
+
+function syncField(eid, field, nckey, val) {
   var e = getExt(eid); if (!e) return;
-  e[field] = val;
-  if (field==='nro')       { var av=document.getElementById('av_'+eid);   if(av)  av.textContent = val||e.num; }
-  if (field==='ubicacion') { var cn=document.getElementById('cn_'+eid);   if(cn)  cn.textContent = val||'Sin ubicación'; }
-  if (field==='agente'||field==='capacidad') {
-    var cs=document.getElementById('cs_'+eid);
-    if(cs) cs.textContent = [e.agente,e.capacidad].filter(Boolean).join(' · ')||'Sin datos';
+  if (nckey) {
+    /* campo dentro de una ficha NC de ítem */
+    if (!e.nc_details[nckey]) e.nc_details[nckey] = {desc:'',resp:'',plazo:''};
+    e.nc_details[nckey][field] = val;
+  } else {
+    e[field] = val;
+    if (field==='nro')       { var av=document.getElementById('av_'+eid);  if(av)  av.textContent=val||e.num; }
+    if (field==='ubicacion') { var cn=document.getElementById('cn_'+eid);  if(cn)  cn.textContent=val||'Sin ubicación'; }
+    if (field==='agente'||field==='capacidad') {
+      var cs=document.getElementById('cs_'+eid);
+      if(cs) cs.textContent=[e.agente,e.capacidad].filter(Boolean).join(' · ')||'Sin datos';
+    }
   }
   calcEstado(eid);
 }
+
 function calcEstado(eid) {
   var e = getExt(eid); if (!e) return;
   var vals=[], answered=0, hasNc=false, hasPend=false;
@@ -345,20 +344,20 @@ function calcEstado(eid) {
     if(vals[i]===null) hasPend=true;
   }
   var hasData = answered>0||e.venc||e.hidro||e.foto;
-  if (!hasData) e.estado='pend';
-  else if (hasNc) e.estado='nc';
+  if (!hasData)      e.estado='pend';
+  else if (hasNc)    e.estado='nc';
   else if (hasPend||!e.foto) e.estado='obs';
-  else e.estado='ok';
-  var card=document.getElementById('card_'+eid);
-  var badge=document.getElementById('badge_'+eid);
-  var ncbox=document.getElementById('ncbox_'+eid);
-  var warn=document.getElementById('fotowarn_'+eid);
-  if(card)  card.className='card '+EC[e.estado];
-  if(badge){badge.className='badge '+EB[e.estado];badge.textContent=EL[e.estado];}
-  if(ncbox) ncbox.style.display=(e.estado==='nc')?'block':'none';
-  if(warn)  warn.style.display=e.foto?'none':'inline';
+  else               e.estado='ok';
+
+  var card  = document.getElementById('card_'+eid);
+  var badge = document.getElementById('badge_'+eid);
+  var warn  = document.getElementById('fotowarn_'+eid);
+  if (card)  card.className  = 'card '+EC[e.estado];
+  if (badge) { badge.className='badge '+EB[e.estado]; badge.textContent=EL[e.estado]; }
+  if (warn)  warn.style.display = e.foto ? 'none' : 'inline';
   updateStats();
 }
+
 function delExt(eid) {
   var n=[];
   for(var i=0;i<exts.length;i++){if(exts[i].id!==eid) n.push(exts[i]);}
@@ -371,10 +370,10 @@ function updateStats() {
     if(exts[i].estado==='nc')  nc++;
     if(exts[i].estado==='obs') obs++;
   }
-  document.getElementById('sT').textContent=exts.length;
-  document.getElementById('sOk').textContent=ok;
-  document.getElementById('sNc').textContent=nc;
-  document.getElementById('sObs').textContent=obs;
+  document.getElementById('sT').textContent  = exts.length;
+  document.getElementById('sOk').textContent = ok;
+  document.getElementById('sNc').textContent = nc;
+  document.getElementById('sObs').textContent= obs;
 }
 
 /* ── foto ── */
@@ -393,36 +392,34 @@ function fotoBoxHtml(e) {
   '</div>';
 }
 function handleFotoFile(eid, file) {
-  var box=document.getElementById('fotobox_'+eid);
-  if(box) box.innerHTML='<div class="foto-loading">⏳ Procesando foto...</div>';
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    compressImage(ev.target.result, 1200, 0.78, function(compressed){
-      var e=getExt(eid); if(!e) return;
-      e.foto=compressed;
-      if(box) box.innerHTML=fotoBoxHtml(e);
+  var box = document.getElementById('fotobox_'+eid);
+  if (box) box.innerHTML='<div class="foto-loading">⏳ Procesando foto...</div>';
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    compressImage(ev.target.result, 700, 0.60, function(compressed){
+      var e = getExt(eid); if (!e) return;
+      e.foto = compressed;
+      if (box) box.innerHTML = fotoBoxHtml(e);
       calcEstado(eid);
     });
   };
-  reader.onerror=function(){
-    if(box) box.innerHTML='<div class="foto-empty" data-action="foto" data-eid="'+eid+'"><span class="foto-empty-ico">⚠️</span><span class="foto-empty-txt">Error al cargar.<br>Tocá para reintentar.</span></div>';
+  reader.onerror = function(){
+    if (box) box.innerHTML='<div class="foto-empty" data-action="foto" data-eid="'+eid+'"><span class="foto-empty-ico">⚠️</span><span class="foto-empty-txt">Error. Tocá para reintentar.</span></div>';
   };
   reader.readAsDataURL(file);
 }
 function compressImage(dataUrl, maxW, q, cb) {
-  var img=new Image();
-  img.onload=function(){
+  var img = new Image();
+  img.onload = function(){
     var w=img.width, h=img.height;
     if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
     var canvas=document.createElement('canvas');
     canvas.width=w; canvas.height=h;
     canvas.getContext('2d').drawImage(img,0,0,w,h);
-    var out;
-    try{out=canvas.toDataURL('image/jpeg',q);}catch(err){out=dataUrl;}
+    var out; try{out=canvas.toDataURL('image/jpeg',q);}catch(err){out=dataUrl;}
     cb(out);
   };
-  img.onerror=function(){cb(dataUrl);};
-  img.src=dataUrl;
+  img.onerror=function(){cb(dataUrl);}; img.src=dataUrl;
 }
 function delFoto(eid) {
   var e=getExt(eid); if(!e) return;
@@ -432,28 +429,54 @@ function delFoto(eid) {
   calcEstado(eid);
 }
 
-/* ── render lista ── */
+/* ── render ── */
+function ncItemBoxHtml(e, k) {
+  var nd = e.nc_details[k] || {desc:'',resp:'',plazo:''};
+  var disp = (e.checks[k] === 'nc') ? 'block' : 'none';
+  return '<div class="nc-item-box" id="nc_'+e.id+'_'+k+'" style="display:'+disp+'">'+
+    '<div class="nc-item-title">⚠️ Acción correctiva — No conformidad</div>'+
+    '<span class="nc-punto-tag">Punto: '+CHK_NAMES[k]+'</span>'+
+    '<div class="fg1" style="gap:8px">'+
+      '<div class="fg"><label>Descripción de la no conformidad</label>'+
+        '<textarea placeholder="Describir el defecto o problema encontrado..." '+
+          'data-eid="'+e.id+'" data-field="desc" data-nckey="'+k+'">'+nd.desc+'</textarea></div>'+
+      '<div class="fg2">'+
+        '<div class="fg"><label>Responsable de resolver</label>'+
+          '<input type="text" value="'+nd.resp+'" placeholder="Nombre / cargo" '+
+            'data-eid="'+e.id+'" data-field="resp" data-nckey="'+k+'" autocomplete="off"></div>'+
+        '<div class="fg"><label>Fecha propuesta</label>'+
+          '<input type="month" value="'+nd.plazo+'" '+
+            'data-eid="'+e.id+'" data-field="plazo" data-nckey="'+k+'"></div>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}
+
 function renderList() {
-  var el=document.getElementById('extList');
-  if(!exts.length){
+  var el = document.getElementById('extList');
+  if (!exts.length) {
     el.innerHTML='<div class="empty"><span>🧯</span>No hay extintores registrados.<br>Tocá <strong>+ Agregar</strong> para comenzar.</div>';
     updateStats(); return;
   }
   var html='';
-  for(var i=0;i<exts.length;i++){
-    var e=exts[i];
-    var sub=[e.agente,e.capacidad].filter(Boolean).join(' · ')||'Sin datos';
-    var ncDisp=(e.estado==='nc')?'block':'none';
+  for (var i=0;i<exts.length;i++) {
+    var e = exts[i];
+    var sub = [e.agente,e.capacidad].filter(Boolean).join(' · ')||'Sin datos';
     var chkRows='';
-    for(var ci=0;ci<CHK_KEYS.length;ci++){
-      var k=CHK_KEYS[ci];
-      chkRows+='<div class="chk">'+
-        '<span class="chk-lbl">'+CHK_NAMES[k]+'</span>'+
-        '<div class="chk-btns">'+
-          '<button class="cb cb-ok'+(e.checks[k]==='ok'?' on':'')+'" id="cb_'+e.id+'_'+k+'_ok" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="ok">OK</button>'+
-          '<button class="cb cb-nc'+(e.checks[k]==='nc'?' on':'')+'" id="cb_'+e.id+'_'+k+'_nc" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="nc">NC</button>'+
-          '<button class="cb cb-na'+(e.checks[k]==='na'?' on':'')+'" id="cb_'+e.id+'_'+k+'_na" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="na">N/A</button>'+
-        '</div></div>';
+    for (var ci=0;ci<CHK_KEYS.length;ci++) {
+      var k = CHK_KEYS[ci];
+      chkRows+=
+        '<div class="chk-wrap">'+
+          '<div class="chk">'+
+            '<span class="chk-lbl">'+CHK_NAMES[k]+'</span>'+
+            '<div class="chk-btns">'+
+              '<button class="cb cb-ok'+(e.checks[k]==='ok'?' on':'')+'" id="cb_'+e.id+'_'+k+'_ok" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="ok">OK</button>'+
+              '<button class="cb cb-nc'+(e.checks[k]==='nc'?' on':'')+'" id="cb_'+e.id+'_'+k+'_nc" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="nc">NC</button>'+
+              '<button class="cb cb-na'+(e.checks[k]==='na'?' on':'')+'" id="cb_'+e.id+'_'+k+'_na" data-action="chk" data-eid="'+e.id+'" data-key="'+k+'" data-val="na">N/A</button>'+
+            '</div>'+
+          '</div>'+
+          ncItemBoxHtml(e, k)+
+        '</div>';
     }
     html+=
       '<div class="card '+EC[e.estado]+'" id="card_'+e.id+'">'+
@@ -468,10 +491,12 @@ function renderList() {
           '<span class="chev" id="chev_'+e.id+'">⌄</span>'+
         '</div>'+
         '<div class="card-body" id="body_'+e.id+'">'+
+
           '<div class="fsec"><div class="flbl">📷 Foto de la estampilla <span class="req-tag">REQUERIDO</span></div>'+
             '<div id="fotobox_'+e.id+'">'+fotoBoxHtml(e)+'</div>'+
             '<input type="file" accept="image/*" capture="environment" id="fotoinput_'+e.id+'" data-eid="'+e.id+'" data-role="fotoinput" style="display:none">'+
           '</div>'+
+
           '<div class="fsec"><div class="flbl">📋 Identificación</div>'+
             '<div class="fg2">'+
               '<div class="fg"><label>N° Extintor</label><input type="text" value="'+e.nro+'" placeholder="EXT-01" data-eid="'+e.id+'" data-field="nro" autocomplete="off"></div>'+
@@ -480,22 +505,20 @@ function renderList() {
               '<div class="fg"><label>Clase</label><select data-eid="'+e.id+'" data-field="clase">'+selOpts(CL,e.clase)+'</select></div>'+
               '<div class="fg"><label>Capacidad</label><select data-eid="'+e.id+'" data-field="capacidad">'+selOpts(CA,e.capacidad)+'</select></div>'+
             '</div></div>'+
+
           '<div class="fsec"><div class="flbl">📅 Fechas</div>'+
             '<div class="fg2">'+
-              '<div class="fg"><label>Vencimiento carga</label><input type="date" value="'+e.venc+'" data-eid="'+e.id+'" data-field="venc"></div>'+
-              '<div class="fg"><label>Prueba hidráulica</label><input type="date" value="'+e.hidro+'" data-eid="'+e.id+'" data-field="hidro"></div>'+
+              '<div class="fg"><label>Vencimiento de carga (mes/año)</label><input type="month" value="'+e.venc+'" data-eid="'+e.id+'" data-field="venc"></div>'+
+              '<div class="fg"><label>Prueba hidráulica (mes/año)</label><input type="month" value="'+e.hidro+'" data-eid="'+e.id+'" data-field="hidro"></div>'+
             '</div></div>'+
+
           '<div class="fsec"><div class="flbl">✅ Verificación de componentes</div>'+chkRows+'</div>'+
+
           '<div class="fsec"><div class="fg1">'+
             '<div class="fg"><label>Observaciones generales</label>'+
-              '<textarea placeholder="Detallar hallazgos, daños..." data-eid="'+e.id+'" data-field="obs">'+e.obs+'</textarea>'+
+              '<textarea placeholder="Observaciones adicionales..." data-eid="'+e.id+'" data-field="obs">'+e.obs+'</textarea>'+
             '</div></div></div>'+
-          '<div class="nc-box" id="ncbox_'+e.id+'" style="display:'+ncDisp+'">'+
-            '<div class="nc-box-title">⚠️ Acción correctiva — No conformidad</div>'+
-            '<div class="fg2">'+
-              '<div class="fg"><label>Responsable de resolver</label><input type="text" value="'+e.resp_nc+'" placeholder="Nombre / cargo" data-eid="'+e.id+'" data-field="resp_nc" autocomplete="off"></div>'+
-              '<div class="fg"><label>Plazo de resolución</label><input type="date" value="'+e.plazo_nc+'" data-eid="'+e.id+'" data-field="plazo_nc"></div>'+
-            '</div></div>'+
+
           '<button class="btn-del" data-action="del" data-eid="'+e.id+'">🗑 Eliminar este extintor</button>'+
         '</div>'+
       '</div>';
@@ -509,16 +532,15 @@ function showReport() {
   var insp=document.getElementById('inspector').value||'(no indicado)';
   var turno=document.getElementById('turno').value||'(no indicado)';
   var dt=getNow();
-  var ok=0,nc=0,obs=0,pend=0;
+  var ok=0,nc=0,obs=0;
   for(var i=0;i<exts.length;i++){
-    if(exts[i].estado==='ok')   ok++;
-    if(exts[i].estado==='nc')   nc++;
-    if(exts[i].estado==='obs')  obs++;
-    if(exts[i].estado==='pend') pend++;
+    if(exts[i].estado==='ok')  ok++;
+    if(exts[i].estado==='nc')  nc++;
+    if(exts[i].estado==='obs') obs++;
   }
   var html=
     '<div class="r-meta">'+
-      '<div class="rrow"><div><strong>Inspector/a</strong><span>'+insp+'</span></div><div><strong>Turno / Sector</strong><span>'+turno+'</span></div></div>'+
+      '<div class="rrow"><div><strong>Inspector/a</strong><span>'+insp+'</span></div><div><strong>Turno</strong><span>'+turno+'</span></div></div>'+
       '<div class="rrow"><div><strong>Fecha y hora</strong><span>'+dt+'</span></div></div>'+
     '</div>'+
     '<div class="r-sum">'+
@@ -527,299 +549,268 @@ function showReport() {
       '<div class="r-sc nc"><div class="n">'+nc+'</div><div class="l">No conf.</div></div>'+
       '<div class="r-sc ob"><div class="n">'+obs+'</div><div class="l">Con obs.</div></div>'+
     '</div>';
-  if(!exts.length) html+='<p style="text-align:center;color:var(--muted);padding:2rem;font-size:14px">No hay extintores registrados.</p>';
-  for(var i=0;i<exts.length;i++){
+
+  if (!exts.length) html+='<p style="text-align:center;color:var(--muted);padding:2rem">No hay extintores registrados.</p>';
+
+  for (var i=0;i<exts.length;i++) {
     var e=exts[i], es=ER[e.estado];
     var chkHtml='';
     for(var ci=0;ci<CHK_KEYS.length;ci++){
       var k=CHK_KEYS[ci], v=e.checks[k]||'pend';
       chkHtml+='<div class="rchk"><div class="dot '+v+'"></div>'+CHK_NAMES[k]+'</div>';
     }
-    var ncHtml=e.estado==='nc'?'<div class="r-nc"><b>⚠️ Acción correctiva</b><strong>Responsable:</strong> '+(e.resp_nc||'No asignado')+'<br><strong>Plazo:</strong> '+fmtD(e.plazo_nc)+'</div>':'';
+    /* NC por ítem */
+    var ncHtml='';
+    for(var ci=0;ci<CHK_KEYS.length;ci++){
+      var k=CHK_KEYS[ci];
+      if(e.checks[k]==='nc'){
+        var nd=e.nc_details[k]||{};
+        ncHtml+='<div class="r-nc-item">'+
+          '<b>⚠️ No conformidad — '+CHK_NAMES[k]+'</b>'+
+          '<div class="r-nc-row"><span>Descripción: </span>'+(nd.desc||'Sin descripción')+'</div>'+
+          '<div class="r-nc-row"><span>Responsable: </span>'+(nd.resp||'No asignado')+'</div>'+
+          '<div class="r-nc-row"><span>Fecha propuesta: </span>'+fmtM(nd.plazo)+'</div>'+
+        '</div>';
+      }
+    }
+    if (ncHtml) ncHtml='<div class="r-nc-list">'+ncHtml+'</div>';
+
     var fotoHtml=e.foto
       ?'<div class="r-foto"><img src="'+e.foto+'" alt="Foto"></div>'
       :'<div class="r-foto-missing">📷 Falta foto de la estampilla</div>';
+
     html+=
       '<div class="r-card">'+
         '<div class="r-card-hdr '+es+'"><span class="rnum '+es+'">N° '+(e.nro||e.num)+'</span><span class="rloc">'+(e.ubicacion||'Sin ubicación')+(e.agente?' · '+e.agente:'')+'</span><span class="badge '+EB[e.estado]+'">'+EL[e.estado]+'</span></div>'+
         '<div class="r-body">'+fotoHtml+
-          '<div class="r-dates"><strong>Clase:</strong> '+(e.clase||'—')+'&nbsp;&nbsp;<strong>Capacidad:</strong> '+(e.capacidad||'—')+'<br><strong>Vencimiento:</strong> '+fmtD(e.venc)+'&nbsp;&nbsp;<strong>Prueba hidráulica:</strong> '+fmtD(e.hidro)+'</div>'+
+          '<div class="r-dates"><strong>Clase:</strong> '+(e.clase||'—')+'&nbsp;&nbsp;<strong>Cap.:</strong> '+(e.capacidad||'—')+'<br><strong>Vencimiento:</strong> '+fmtM(e.venc)+'&nbsp;&nbsp;<strong>Prueba hidráulica:</strong> '+fmtM(e.hidro)+'</div>'+
           '<div class="r-checks">'+chkHtml+'</div>'+
-          (e.obs?'<div class="r-obs"><b>Obs:</b> '+e.obs+'</div>':'')+ncHtml+
+          (e.obs?'<div class="r-obs"><b>Obs:</b> '+e.obs+'</div>':'')+
+          ncHtml+
         '</div></div>';
   }
+
   html+=
     '<div class="r-actions">'+
-      '<button class="btn-s" id="btnVolver2" onclick="cerrarModal()">← Volver</button>'+
+      '<button class="btn-s" onclick="cerrarModal()">← Volver</button>'+
       '<button class="btn-p" id="btnPDFModal">📄 Generar PDF</button>'+
     '</div>';
+
   document.getElementById('modalBody').innerHTML=html;
   document.getElementById('modalInforme').classList.add('open');
   document.getElementById('modalInforme').scrollTop=0;
 }
 function cerrarModal(){document.getElementById('modalInforme').classList.remove('open');}
 
-/* ══════════════════════════════════════════════
-   GENERADOR DE PDF  (jsPDF - corre en Safari/iPhone)
-   ══════════════════════════════════════════════ */
+/* ══════════════════════════════
+   GENERADOR PDF
+   ══════════════════════════════ */
 function generarPDF() {
   var jsPDFLib = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
-  if (!jsPDFLib) {
-    alert('La librería PDF todavía se está cargando. Esperá un momento e intentá de nuevo.');
-    return;
-  }
-
-  var btnPDF = document.getElementById('btnPDF');
-  if (btnPDF) { btnPDF.classList.add('loading'); btnPDF.textContent = '⏳ Generando...'; }
-
-  setTimeout(function() {
-    try {
-      _buildPDF(jsPDFLib);
-    } catch(err) {
-      alert('Error al generar el PDF: ' + err.message);
-    } finally {
-      if (btnPDF) { btnPDF.classList.remove('loading'); btnPDF.textContent = '📄 Generar PDF'; }
-    }
+  if (!jsPDFLib) { alert('La librería PDF todavía se está cargando. Esperá un momento.'); return; }
+  var btn = document.getElementById('btnPDF');
+  if (btn) { btn.classList.add('loading'); btn.textContent='⏳ Generando...'; }
+  setTimeout(function(){
+    try { _buildPDF(jsPDFLib); }
+    catch(err) { alert('Error al generar el PDF: '+err.message); }
+    finally { if (btn) { btn.classList.remove('loading'); btn.textContent='📄 Generar PDF'; } }
   }, 100);
 }
 
 function _buildPDF(jsPDFLib) {
-  var insp  = document.getElementById('inspector').value || '(no indicado)';
-  var turno = document.getElementById('turno').value     || '(no indicado)';
+  var insp  = document.getElementById('inspector').value||'(no indicado)';
+  var turno = document.getElementById('turno').value||'(no indicado)';
   var dt    = getNow();
+  var doc   = new jsPDFLib({orientation:'portrait', unit:'mm', format:'a4'});
+  var PW=210, PH=297, ML=14, MR=14, CW=PW-ML-MR;
+  var y=0;
 
-  var doc = new jsPDFLib({ orientation:'portrait', unit:'mm', format:'a4' });
-  var PW = 210, PH = 297, ML = 14, MR = 14, CW = PW - ML - MR;
-  var y = 0;
-
-  /* paleta */
-  var C = {
+  var C={
     navy:[13,27,42], red:[217,48,37],
     ok:[46,125,50],  okBg:[232,245,233],
     nc:[198,40,40],  ncBg:[255,235,238],
     obs:[230,81,0],  obsBg:[255,243,224],
     pend:[117,117,117], pendBg:[245,245,245],
     white:[255,255,255], black:[26,26,46],
-    gray:[107,114,128], lgray:[221,225,231],
-    bg:[240,242,245]
+    gray:[107,114,128], lgray:[221,225,231], bg:[240,242,245]
   };
 
-  function stateColors(estado) {
-    if (estado==='ok')   return {fg:C.ok,  bg:C.okBg};
-    if (estado==='nc')   return {fg:C.nc,  bg:C.ncBg};
-    if (estado==='obs')  return {fg:C.obs, bg:C.obsBg};
-    return {fg:C.pend, bg:C.pendBg};
+  function sc(est){
+    if(est==='ok')  return {fg:C.ok, bg:C.okBg};
+    if(est==='nc')  return {fg:C.nc, bg:C.ncBg};
+    if(est==='obs') return {fg:C.obs,bg:C.obsBg};
+    return {fg:C.pend,bg:C.pendBg};
   }
+  function checkY(n){ if(y+n>PH-14){doc.addPage();y=16;} }
+  function fill(c){doc.setFillColor(c[0],c[1],c[2]);}
+  function drw(c){doc.setDrawColor(c[0],c[1],c[2]);}
+  function txt(c){doc.setTextColor(c[0],c[1],c[2]);}
+  function font(s,sz){doc.setFont('helvetica',s);doc.setFontSize(sz);}
 
-  function checkY(needed) { if (y + needed > PH - 14) { doc.addPage(); y = 16; } }
-  function setFill(rgb)   { doc.setFillColor(rgb[0], rgb[1], rgb[2]); }
-  function setDraw(rgb)   { doc.setDrawColor(rgb[0], rgb[1], rgb[2]); }
-  function setTxt(rgb)    { doc.setTextColor(rgb[0], rgb[1], rgb[2]); }
-  function setFont(style, size) { doc.setFont('helvetica', style); doc.setFontSize(size); }
+  /* encabezado */
+  fill(C.navy); doc.rect(0,0,PW,26,'F');
+  fill(C.red);  doc.roundedRect(ML,6,16,14,2,2,'F');
+  font('bold',10); txt(C.white); doc.text('YPF',ML+8,14.5,{align:'center'});
+  font('bold',13); doc.text('INSPECCIÓN DE EXTINTORES',ML+20,13);
+  font('normal',8); txt([122,144,168]); doc.text('Estación de Servicio  ·  La Plata, Buenos Aires',ML+20,19.5);
+  y=32;
 
-  function addPageFooter(pageNum, totalPages) {
-    setFont('normal', 6.5); setTxt(C.gray);
-    doc.text('Inspección de Extintores YPF  ·  La Plata, Buenos Aires  ·  '+dt,
-      ML, PH-6);
-    doc.text('Página '+pageNum+' de '+totalPages, PW-ML, PH-6, {align:'right'});
-  }
-
-  /* ─── ENCABEZADO ─── */
-  setFill(C.navy); doc.rect(0, 0, PW, 26, 'F');
-  setFill(C.red);  doc.roundedRect(ML, 6, 16, 14, 2, 2, 'F');
-  setFont('bold', 10); setTxt(C.white);
-  doc.text('YPF', ML+8, 14.5, {align:'center'});
-  setFont('bold', 13); setTxt(C.white);
-  doc.text('INSPECCIÓN DE EXTINTORES', ML+20, 13);
-  setFont('normal', 8); setTxt([122,144,168]);
-  doc.text('Estación de Servicio  ·  La Plata, Buenos Aires', ML+20, 19.5);
-  y = 32;
-
-  /* ─── DATOS DE LA INSPECCIÓN ─── */
-  setFill(C.bg); doc.roundedRect(ML, y, CW, 22, 2, 2, 'F');
-  setFont('bold', 7); setTxt(C.gray);
-  doc.text('DATOS DE LA INSPECCIÓN', ML+4, y+5);
-  setFont('normal', 8.5); setTxt(C.black);
+  /* datos inspección */
   var ok=0,nc=0,obs=0;
   for(var i=0;i<exts.length;i++){
     if(exts[i].estado==='ok')  ok++;
     if(exts[i].estado==='nc')  nc++;
     if(exts[i].estado==='obs') obs++;
   }
-  var halfX = ML + CW/2 + 4;
-  doc.text('Inspector/a:', ML+4, y+11);   setFont('bold',8.5); doc.text(insp, ML+24, y+11);
-  setFont('normal',8.5);
-  doc.text('Turno / Sector:', halfX, y+11); setFont('bold',8.5); doc.text(turno, halfX+22, y+11);
-  setFont('normal',8.5);
-  doc.text('Fecha y hora:', ML+4, y+17);   setFont('bold',8.5); doc.text(dt, ML+24, y+17);
-  setFont('normal',8.5);
-  doc.text('Total: '+exts.length+'  Conformes: '+ok+'  No conformes: '+nc+'  Con obs.: '+obs, halfX, y+17);
-  y += 27;
+  fill(C.bg); doc.roundedRect(ML,y,CW,22,2,2,'F');
+  font('bold',7); txt(C.gray); doc.text('DATOS DE LA INSPECCIÓN',ML+4,y+5);
+  font('normal',8.5); txt(C.black);
+  var hx=ML+CW/2+4;
+  doc.text('Inspector/a:',ML+4,y+11); font('bold',8.5); doc.text(insp,ML+24,y+11);
+  font('normal',8.5); doc.text('Turno:',hx,y+11); font('bold',8.5); doc.text(turno,hx+14,y+11);
+  font('normal',8.5); doc.text('Fecha:',ML+4,y+17); font('bold',8.5); doc.text(dt,ML+16,y+17);
+  font('normal',8.5); doc.text('Total: '+exts.length+'  Conf.:'+ok+'  NC:'+nc+'  Obs.:'+obs,hx,y+17);
+  y+=27;
 
-  /* ─── CADA EXTINTOR ─── */
-  for (var i=0; i<exts.length; i++) {
-    var e = exts[i];
-    var sc = stateColors(e.estado);
-    var estLbl = EL[e.estado] || 'Pendiente';
+  var SHORT={pintura:'Pintura/cuerpo',manguera:'Manguera',boquilla:'Boquilla/válvula',
+             precinto:'Precinto',manometro:'Manómetro',senalizacion:'Señalización',
+             soporte:'Soporte/gancho',carga_vigente:'Carga vigente'};
 
-    /* Calcular altura del bloque para ver si entra */
-    var blockMin = 52; /* mínimo sin foto */
-    checkY(blockMin);
+  for(var i=0;i<exts.length;i++){
+    var e=exts[i];
+    var esc=sc(e.estado);
 
-    /* Cabecera del extintor */
-    setFill(sc.fg); doc.rect(ML, y, CW, 8, 'F');
-    setFont('bold', 9.5); setTxt(C.white);
-    doc.text('N° '+(e.nro||e.num)+'  '+( e.ubicacion||'Sin ubicación'), ML+3, y+5.5);
-    setFont('bold', 8.5);
-    doc.text(estLbl.toUpperCase(), PW-MR-2, y+5.5, {align:'right'});
-    y += 10;
+    checkY(30);
+    /* cabecera extintor */
+    fill(esc.fg); doc.rect(ML,y,CW,8,'F');
+    font('bold',9.5); txt(C.white);
+    doc.text('N° '+(e.nro||e.num)+'  '+(e.ubicacion||'Sin ubicación'),ML+3,y+5.5);
+    doc.text((EL[e.estado]||'').toUpperCase(),PW-MR-2,y+5.5,{align:'right'});
+    y+=10;
 
-    /* Datos técnicos */
-    setFill(C.bg); doc.rect(ML, y, CW, 10, 'F');
-    setFont('normal', 8); setTxt(C.black);
-    var col2 = ML + CW/2 + 2;
-    doc.text('Agente: ', ML+3, y+4);     setFont('bold',8); doc.text(e.agente||'—', ML+18, y+4);
-    setFont('normal',8); doc.text('Clase: ', col2, y+4);    setFont('bold',8); doc.text(e.clase||'—', col2+12, y+4);
-    setFont('normal',8); doc.text('Capacidad: ', ML+3, y+8.5); setFont('bold',8); doc.text(e.capacidad||'—', ML+22, y+8.5);
-    setFont('normal',8); doc.text('Vencimiento: ', col2, y+8.5); setFont('bold',8); doc.text(fmtD(e.venc), col2+22, y+8.5);
-    y += 12;
+    /* datos técnicos */
+    fill(C.bg); doc.rect(ML,y,CW,10,'F');
+    font('normal',8); txt(C.black);
+    var c2=ML+CW/2+2;
+    doc.text('Agente:',ML+3,y+4);     font('bold',8); doc.text(e.agente||'—',ML+18,y+4);
+    font('normal',8); doc.text('Clase:',c2,y+4);      font('bold',8); doc.text(e.clase||'—',c2+12,y+4);
+    font('normal',8); doc.text('Capacidad:',ML+3,y+8.5); font('bold',8); doc.text(e.capacidad||'—',ML+22,y+8.5);
+    font('normal',8); doc.text('Vencimiento:',c2,y+8.5);  font('bold',8); doc.text(fmtM(e.venc),c2+22,y+8.5);
+    y+=12;
 
-    /* Prueba hidráulica */
-    setFont('normal',8); setTxt(C.black);
-    doc.text('Prueba hidráulica: ', ML+3, y+4); setFont('bold',8); doc.text(fmtD(e.hidro), ML+36, y+4);
-    y += 8;
+    checkY(8);
+    font('normal',8); txt(C.black);
+    doc.text('Prueba hidráulica:',ML+3,y+4); font('bold',8); doc.text(fmtM(e.hidro),ML+36,y+4);
+    y+=8;
 
-    /* Foto (si existe) */
+    /* foto */
     if (e.foto) {
       try {
-        /* Obtener dimensiones reales de la imagen para respetar proporciones */
-        var imgProps = doc.getImageProperties(e.foto);
-        var imgW = imgProps.width;
-        var imgH = imgProps.height;
-
-        /* Ancho máximo = 90mm (tamaño mediano, centrado) */
-        var maxW = 90;
-        var maxH = 60;
-        var ratio = imgW / imgH;
-
-        var drawW, drawH;
-        if (ratio >= 1) {
-          /* landscape o cuadrada */
-          drawW = Math.min(maxW, CW);
-          drawH = drawW / ratio;
-          if (drawH > maxH) { drawH = maxH; drawW = drawH * ratio; }
-        } else {
-          /* portrait */
-          drawH = maxH;
-          drawW = drawH * ratio;
-          if (drawW > maxW) { drawW = maxW; drawH = drawW / ratio; }
-        }
-
-        var drawX = ML + (CW - drawW) / 2; /* centrada horizontalmente */
-
-        checkY(drawH + 6);
-        setDraw(C.lgray); doc.setLineWidth(0.3);
-        doc.rect(drawX - 1, y, drawW + 2, drawH + 2);
-        doc.addImage(e.foto, 'JPEG', drawX, y + 1, drawW, drawH, undefined, 'MEDIUM');
-
-        /* etiqueta debajo */
-        setFont('normal', 6.5); setTxt(C.gray);
-        doc.text('Foto de la estampilla', ML + CW/2, y + drawH + 4, {align:'center'});
-        y += drawH + 7;
-      } catch(imgErr) {
-        setFill(C.bg); doc.rect(ML, y, CW, 8, 'F');
-        setFont('italic',8); setTxt(C.gray);
-        doc.text('(Foto no disponible en PDF)', ML+4, y+5.5);
-        y += 10;
+        var ip=doc.getImageProperties(e.foto);
+        var ratio=ip.width/ip.height;
+        var mW=90, mH=60, dW, dH;
+        if(ratio>=1){dW=Math.min(mW,CW);dH=dW/ratio;if(dH>mH){dH=mH;dW=dH*ratio;}}
+        else{dH=mH;dW=dH*ratio;if(dW>mW){dW=mW;dH=dW/ratio;}}
+        var dX=ML+(CW-dW)/2;
+        checkY(dH+8);
+        drw(C.lgray); doc.setLineWidth(0.3); doc.rect(dX-1,y,dW+2,dH+2);
+        doc.addImage(e.foto,'JPEG',dX,y+1,dW,dH,undefined,'MEDIUM');
+        font('normal',6.5); txt(C.gray);
+        doc.text('Foto de la estampilla',ML+CW/2,y+dH+5,{align:'center'});
+        y+=dH+8;
+      } catch(ie){
+        checkY(9); fill(C.bg); doc.rect(ML,y,CW,8,'F');
+        font('italic',8); txt(C.gray); doc.text('(Foto no disponible)',ML+4,y+5.5); y+=10;
       }
     } else {
-      checkY(10);
-      setFill(C.ncBg); doc.rect(ML, y, CW, 8, 'F');
-      setFont('bold',8); setTxt(C.nc);
-      doc.text('Foto de la estampilla: FALTANTE', ML+4, y+5.5);
-      y += 10;
+      checkY(9);
+      fill(C.ncBg); doc.rect(ML,y,CW,8,'F');
+      font('bold',8); txt(C.nc); doc.text('Foto de la estampilla: FALTANTE',ML+4,y+5.5); y+=10;
     }
 
-    /* Grilla de verificación — 4 por fila */
-    var cw4 = CW/4;
-    for (var row=0; row<2; row++) {
-      checkY(14);
-      for (var col=0; col<4; col++) {
-        var ci = row*4 + col;
-        if (ci >= CHK_KEYS.length) break;
-        var k = CHK_KEYS[ci];
-        var v = e.checks[k];
-        var vsc = stateColors(v || 'pend');
-        var lbl = v==='ok'?'OK' : v==='nc'?'NC' : v==='na'?'N/A' : '—';
-        var cx = ML + col*cw4;
-        setFill(vsc.bg); doc.rect(cx, y, cw4-0.5, 12, 'F');
-        setFont('normal', 6); setTxt(C.gray);
-        var shortNames = {
-          pintura:'Pintura/cuerpo', manguera:'Manguera', boquilla:'Boquilla/válvula',
-          precinto:'Precinto', manometro:'Manómetro', senalizacion:'Señalización',
-          soporte:'Soporte/gancho', carga_vigente:'Carga vigente'
-        };
-        doc.text(shortNames[k]||k, cx+2, y+4);
-        setFont('bold', 9); setTxt(vsc.fg);
-        doc.text(lbl, cx + cw4/2, y+9.5, {align:'center'});
+    /* grilla checks — 4 por fila */
+    var cw4=CW/4;
+    for(var row=0;row<2;row++){
+      checkY(13);
+      for(var col=0;col<4;col++){
+        var ci=row*4+col; if(ci>=CHK_KEYS.length) break;
+        var k=CHK_KEYS[ci], v=e.checks[k];
+        var vsc=sc(v||'pend');
+        var lbl=v==='ok'?'OK':v==='nc'?'NC':v==='na'?'N/A':'—';
+        var cx=ML+col*cw4;
+        fill(vsc.bg); doc.rect(cx,y,cw4-0.5,12,'F');
+        font('normal',6); txt(C.gray); doc.text(SHORT[k]||k,cx+2,y+4);
+        font('bold',9);   txt(vsc.fg); doc.text(lbl,cx+cw4/2,y+9.5,{align:'center'});
       }
-      y += 13;
+      y+=13;
     }
 
-    /* Observaciones */
-    if (e.obs) {
+    /* observaciones generales */
+    if(e.obs){
+      checkY(10); font('normal',8); txt(C.black);
+      doc.text('Obs:',ML+3,y+4); font('italic',8);
+      var oL=doc.splitTextToSize(e.obs,CW-20);
+      doc.text(oL,ML+14,y+4); y+=4+oL.length*3.8;
+    }
+
+    /* no conformidades por ítem */
+    var hasNC=false;
+    for(var ci=0;ci<CHK_KEYS.length;ci++){if(e.checks[CHK_KEYS[ci]]==='nc'){hasNC=true;break;}}
+    if(hasNC){
       checkY(10);
-      setFont('normal',8); setTxt(C.black);
-      doc.text('Obs: ', ML+3, y+4); setFont('italic',8);
-      var obsLines = doc.splitTextToSize(e.obs, CW-20);
-      doc.text(obsLines, ML+14, y+4);
-      y += 4 + obsLines.length * 3.8;
+      font('bold',8); txt(C.nc); doc.text('ACCIONES CORRECTIVAS',ML+3,y+5); y+=8;
+      for(var ci=0;ci<CHK_KEYS.length;ci++){
+        var k=CHK_KEYS[ci];
+        if(e.checks[k]!=='nc') continue;
+        var nd=e.nc_details[k]||{};
+        var bH=26;
+        checkY(bH);
+        fill(C.ncBg); doc.rect(ML,y,CW,bH,'F');
+        drw(C.nc); doc.setLineWidth(0.3); doc.rect(ML,y,CW,bH);
+
+        font('bold',7.5); txt(C.nc);
+        doc.text('Punto: '+CHK_NAMES[k],ML+3,y+5.5);
+
+        font('normal',8); txt(C.black);
+        var descLines=doc.splitTextToSize((nd.desc||'Sin descripción'),CW-6);
+        doc.text('Descripción: ',ML+3,y+10.5);
+        font('italic',8);
+        doc.text(descLines,ML+26,y+10.5);
+
+        font('normal',8);
+        doc.text('Responsable: ',ML+3,y+17); font('bold',8); doc.text(nd.resp||'No asignado',ML+25,y+17);
+        font('normal',8); doc.text('Fecha propuesta: ',c2,y+17); font('bold',8); doc.text(fmtM(nd.plazo)||'No definida',c2+30,y+17);
+        y+=bH+3;
+      }
     }
 
-    /* Acción correctiva (NC) */
-    if (e.estado === 'nc') {
-      checkY(16);
-      setFill(C.ncBg); doc.rect(ML, y, CW, 14, 'F');
-      setDraw(C.nc); doc.setLineWidth(0.4); doc.rect(ML, y, CW, 14);
-      setFont('bold', 7.5); setTxt(C.nc);
-      doc.text('ACCIÓN CORRECTIVA', ML+3, y+5);
-      setFont('normal', 8); setTxt(C.black);
-      doc.text('Responsable: ', ML+3, y+10.5); setFont('bold',8); doc.text(e.resp_nc||'No asignado', ML+25, y+10.5);
-      setFont('normal',8); doc.text('Plazo: ', ML + CW/2+2, y+10.5); setFont('bold',8); doc.text(fmtD(e.plazo_nc)||'No definido', ML+CW/2+14, y+10.5);
-      y += 17;
-    }
-
-    /* Separador */
-    setDraw(C.lgray); doc.setLineWidth(0.3);
-    doc.line(ML, y, PW-MR, y);
-    y += 5;
+    /* separador */
+    drw(C.lgray); doc.setLineWidth(0.3); doc.line(ML,y,PW-MR,y); y+=5;
   }
 
-  /* ─── FIRMAS ─── */
-  checkY(28);
-  y += 4;
-  setFill(C.bg); doc.roundedRect(ML, y, CW, 22, 2, 2, 'F');
-  setFont('bold',7); setTxt(C.gray);
-  doc.text('FIRMA DEL INSPECTOR/A', ML+4, y+6);
-  doc.text('FIRMA JEFE DE TURNO', ML+CW/2+4, y+6);
-  setDraw(C.lgray); doc.setLineWidth(0.4);
-  doc.line(ML+4, y+17, ML+60, y+17);
-  doc.line(ML+CW/2+4, y+17, ML+CW/2+60, y+17);
-  setFont('normal',7); setTxt(C.gray);
-  doc.text(insp, ML+4, y+20);
-  doc.text('Nombre y aclaración', ML+CW/2+4, y+20);
-  y += 26;
+  /* firmas */
+  checkY(28); y+=4;
+  fill(C.bg); doc.roundedRect(ML,y,CW,22,2,2,'F');
+  font('bold',7); txt(C.gray);
+  doc.text('FIRMA DEL INSPECTOR/A',ML+4,y+6);
+  doc.text('FIRMA JEFE DE TURNO',ML+CW/2+4,y+6);
+  drw(C.lgray); doc.setLineWidth(0.4);
+  doc.line(ML+4,y+17,ML+60,y+17);
+  doc.line(ML+CW/2+4,y+17,ML+CW/2+60,y+17);
+  font('normal',7); txt(C.gray);
+  doc.text(insp,ML+4,y+20);
+  doc.text('Nombre y aclaración',ML+CW/2+4,y+20);
 
-  /* ─── PIES DE PÁGINA ─── */
-  var totalPages = doc.getNumberOfPages();
-  for (var pg=1; pg<=totalPages; pg++) {
+  /* pies */
+  var total=doc.getNumberOfPages();
+  for(var pg=1;pg<=total;pg++){
     doc.setPage(pg);
-    addPageFooter(pg, totalPages);
+    font('normal',6.5); txt(C.gray);
+    doc.text('Inspección de Extintores YPF  ·  La Plata, Buenos Aires  ·  '+dt,ML,PH-6);
+    doc.text('Página '+pg+' de '+total,PW-MR,PH-6,{align:'right'});
   }
 
-  /* ─── GUARDAR ─── */
-  var fecha = new Date().toISOString().slice(0,10);
-  doc.save('inspeccion_extintores_'+fecha+'.pdf');
+  doc.save('inspeccion_extintores_'+new Date().toISOString().slice(0,10)+'.pdf');
 }
 
 renderList();
