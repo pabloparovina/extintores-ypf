@@ -237,7 +237,7 @@ var EMAIL_ADMIN      = 'pabloparovina@gmail.com'; // ← tu email
 /* Usuarios autorizados: { nombre, pin }
    Para agregar usuarios simplemente agregá una línea más */
 var USUARIOS = [
-  { nombre: 'Pablo Parovina', pin: '0612' },
+  { nombre: 'Pablo Parovina', pin: '1234' },
   { nombre: 'Inspector 2',    pin: '5678' },
   { nombre: 'Inspector 3',    pin: '9012' }
 ];
@@ -763,7 +763,9 @@ function _buildPDF(jsPDFLib) {
   var fechaInspFmt = fiPDF ? (function(v){var p=v.split('-');return p[2]+'/'+p[1]+'/'+p[0];})(fiPDF) : '(no indicada)';
   var dt    = getNow();
   var doc   = new jsPDFLib({orientation:'portrait', unit:'mm', format:'a4'});
-  var PW=210, PH=297, ML=14, MR=14, CW=PW-ML-MR;
+  var PW = doc.internal.pageSize.getWidth();
+  var PH = doc.internal.pageSize.getHeight();
+  var ML=14, MR=14, CW=PW-ML-MR;
   var y=0;
 
   var C={
@@ -782,31 +784,40 @@ function _buildPDF(jsPDFLib) {
     if(est==='obs') return {fg:C.obs,bg:C.obsBg};
     return {fg:C.pend,bg:C.pendBg};
   }
-  function checkY(n){ if(y+n>PH-14){doc.addPage();y=16;} }
+  function checkY(n){ if(y+n>PH-20){doc.addPage();y=16;} }
   function fill(c){doc.setFillColor(c[0],c[1],c[2]);}
   function drw(c){doc.setDrawColor(c[0],c[1],c[2]);}
   function txt(c){doc.setTextColor(c[0],c[1],c[2]);}
   function font(s,sz){doc.setFont('helvetica',s);doc.setFontSize(sz);}
+  /* Truncar texto para que no desborde: devuelve primera línea dentro de maxW */
+  function trunc(str, maxW){ return doc.splitTextToSize(String(str||''), maxW)[0]; }
+  /* Texto multilínea con control de altura: devuelve nro de líneas */
+  function mtext(str, x, yy, maxW){
+    var lines=doc.splitTextToSize(String(str||''),maxW);
+    doc.text(lines,x,yy);
+    return lines.length;
+  }
 
   /* encabezado */
-  fill(C.navy); doc.rect(0,0,PW,30,'F');
-  /* logo sobre fondo blanco */
+  /* Encabezado — fondo que cubre todo el ancho real */
+  fill(C.navy); doc.rect(0, 0, PW, 32, 'F');
+  /* logo sobre pastilla blanca */
   try {
     doc.setFillColor(255,255,255);
-    doc.roundedRect(ML, 4, 54, 22, 3, 3, 'F');
-    doc.addImage(LOGO_B64,'PNG', ML+1, 5, 52, 20);
+    doc.roundedRect(ML, 5, 54, 22, 3, 3, 'F');
+    doc.addImage(LOGO_B64,'PNG', ML+1, 6, 52, 20);
   } catch(le) {
-    font('bold',11); txt(C.white); doc.text('PP · SH', ML+2, 17);
+    font('bold',11); txt(C.white); doc.text('PP · SH', ML+2, 18);
   }
   /* línea divisora vertical */
-  doc.setDrawColor(255,255,255); doc.setLineWidth(0.4);
-  doc.line(ML+56, 6, ML+56, 24);
-  /* textos */
-  font('bold',13); txt(C.white);
-  doc.text('CONTROL DE EXTINTORES', ML+60, 14);
-  font('normal',8); txt([122,144,168]);
-  doc.text('Inspección y Verificación  ·  La Plata, Buenos Aires', ML+60, 21);
-  y=36;
+  doc.setDrawColor(255,255,255); doc.setLineWidth(0.5);
+  doc.line(ML+58, 7, ML+58, 26);
+  /* título y subtítulo */
+  font('bold',14); txt(C.white);
+  doc.text('CONTROL DE EXTINTORES', ML+62, 16);
+  font('normal',8.5); txt([140,160,185]);
+  doc.text('Inspección y Verificación  ·  La Plata, Buenos Aires', ML+62, 24);
+  y=38;
 
   /* datos inspección */
   var ok=0,nc=0,obs=0;
@@ -819,9 +830,10 @@ function _buildPDF(jsPDFLib) {
   font('bold',7); txt(C.gray); doc.text('DATOS DE LA INSPECCIÓN',ML+4,y+5);
   font('normal',8.5); txt(C.black);
   var hx=ML+CW/2+4;
-  doc.text('Inspector/a:',ML+4,y+11); font('bold',8.5); doc.text(insp,ML+24,y+11);
-  font('normal',8.5); doc.text('Empresa:',hx,y+11); font('bold',8.5); doc.text(turno,hx+18,y+11);
-  font('normal',8.5); doc.text('Fecha inspección:',ML+4,y+17); font('bold',8.5); doc.text(fechaInspFmt,ML+32,y+17);
+  var halfW=CW/2-26;
+  doc.text('Inspector/a:',ML+4,y+11); font('bold',8.5); doc.text(trunc(insp,halfW),ML+24,y+11);
+  font('normal',8.5); doc.text('Empresa:',hx,y+11); font('bold',8.5); doc.text(trunc(turno,halfW),hx+18,y+11);
+  font('normal',8.5); doc.text('Fecha inspección:',ML+4,y+17); font('bold',8.5); doc.text(trunc(fechaInspFmt,halfW),ML+32,y+17);
   font('normal',8.5); doc.text('Total: '+exts.length+'  Conf.:'+ok+'  NC:'+nc+'  Obs.:'+obs,hx,y+17);
   y+=27;
 
@@ -837,18 +849,22 @@ function _buildPDF(jsPDFLib) {
     /* cabecera extintor */
     fill(esc.fg); doc.rect(ML,y,CW,8,'F');
     font('bold',9.5); txt(C.white);
-    doc.text('N° '+(e.nro||e.num)+'  '+(e.ubicacion||'Sin ubicación'),ML+3,y+5.5);
-    doc.text((EL[e.estado]||'').toUpperCase(),PW-MR-2,y+5.5,{align:'right'});
+    var estLbl=(EL[e.estado]||'').toUpperCase();
+    var estW=doc.getTextWidth(estLbl)+4;
+    var nroUbi='N° '+(e.nro||e.num)+'  '+trunc(e.ubicacion||'Sin ubicación', CW-estW-10);
+    doc.text(nroUbi,ML+3,y+5.5);
+    doc.text(estLbl,PW-MR-2,y+5.5,{align:'right'});
     y+=10;
 
     /* datos técnicos */
     fill(C.bg); doc.rect(ML,y,CW,10,'F');
     font('normal',8); txt(C.black);
     var c2=ML+CW/2+2;
-    doc.text('Agente:',ML+3,y+4);     font('bold',8); doc.text(e.agente||'—',ML+18,y+4);
-    font('normal',8); doc.text('Clase:',c2,y+4);      font('bold',8); doc.text(e.clase||'—',c2+12,y+4);
-    font('normal',8); doc.text('Capacidad:',ML+3,y+8.5); font('bold',8); doc.text(e.capacidad||'—',ML+22,y+8.5);
-    font('normal',8); doc.text('Vencimiento:',c2,y+8.5);  font('bold',8); doc.text(fmtM(e.venc),c2+22,y+8.5);
+    var colW=CW/2-6;
+    doc.text('Agente:',ML+3,y+4);    font('bold',8); doc.text(trunc(e.agente||'—',colW-16),ML+18,y+4);
+    font('normal',8); doc.text('Clase:',c2,y+4);     font('bold',8); doc.text(trunc(e.clase||'—',20),c2+12,y+4);
+    font('normal',8); doc.text('Capacidad:',ML+3,y+8.5); font('bold',8); doc.text(trunc(e.capacidad||'—',colW-20),ML+22,y+8.5);
+    font('normal',8); doc.text('Vencimiento:',c2,y+8.5); font('bold',8); doc.text(trunc(fmtM(e.venc),colW-20),c2+22,y+8.5);
     y+=12;
 
     checkY(8);
@@ -925,14 +941,14 @@ function _buildPDF(jsPDFLib) {
         doc.text('Punto: '+CHK_NAMES[k],ML+3,y+5.5);
 
         font('normal',8); txt(C.black);
-        var descLines=doc.splitTextToSize((nd.desc||'Sin descripción'),CW-6);
+        var descLines=doc.splitTextToSize(nd.desc||'Sin descripción', CW-30);
         doc.text('Descripción: ',ML+3,y+10.5);
         font('italic',8);
         doc.text(descLines,ML+26,y+10.5);
 
         font('normal',8);
-        doc.text('Responsable: ',ML+3,y+17); font('bold',8); doc.text(nd.resp||'No asignado',ML+25,y+17);
-        font('normal',8); doc.text('Fecha propuesta: ',c2,y+17); font('bold',8); doc.text(fmtM(nd.plazo)||'No definida',c2+30,y+17);
+        doc.text('Responsable: ',ML+3,y+17); font('bold',8); doc.text(trunc(nd.resp||'No asignado',CW/2-28),ML+25,y+17);
+        font('normal',8); doc.text('Fecha: ',c2,y+17); font('bold',8); doc.text(trunc(fmtM(nd.plazo)||'No definida',40),c2+12,y+17);
         y+=bH+3;
       }
     }
@@ -958,18 +974,20 @@ function _buildPDF(jsPDFLib) {
   var total=doc.getNumberOfPages();
   for(var pg=1;pg<=total;pg++){
     doc.setPage(pg);
-    /* línea separadora del pie */
-    doc.setDrawColor(221,225,231); doc.setLineWidth(0.3);
-    doc.line(ML, PH-11, PW-MR, PH-11);
-    /* logo pequeño en el pie */
+    /* Pie — banda gris clara de borde a borde */
+    doc.setDrawColor(200,205,210); doc.setLineWidth(0.4);
+    doc.line(0, PH-13, PW, PH-13);
+    fill([248,249,251]); doc.rect(0, PH-12, PW, 12, 'F');
+    /* logo pequeño */
     try {
       doc.setFillColor(255,255,255);
-      doc.roundedRect(ML, PH-10, 24, 8, 1.5, 1.5, 'F');
-      doc.addImage(LOGO_B64,'PNG', ML+0.5, PH-9.5, 23, 7);
+      doc.roundedRect(ML, PH-11, 26, 9, 1.5, 1.5, 'F');
+      doc.addImage(LOGO_B64,'PNG', ML+0.5, PH-10.5, 25, 8);
     } catch(e){}
     font('normal',6.5); txt(C.gray);
-    doc.text('Control de Extintores  ·  La Plata, Buenos Aires  ·  '+dt, ML+25, PH-5);
-    doc.text('Página '+pg+' de '+total,PW-MR,PH-5,{align:'right'});
+    doc.text('Control de Extintores  ·  La Plata, Buenos Aires  ·  '+dt, ML+29, PH-5.5);
+    font('bold',6.5);
+    doc.text('Página '+pg+' de '+total, PW-MR, PH-5.5, {align:'right'});
   }
 
   doc.save('inspeccion_extintores_'+new Date().toISOString().slice(0,10)+'.pdf');
